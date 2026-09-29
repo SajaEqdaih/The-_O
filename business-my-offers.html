@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+   عروض الأعمال
+  </title>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/ui-kit.css" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body data-role="business">
+<div class="dashboard">
+<aside class="sidebar">
+<a class="brand" href="business-dashboard.html">
+<span class="mark">
+      م
+     </span>
+<span>
+<strong>
+       The O للأعمال
+      </strong>
+<small>
+       BUSINESS
+      </small>
+</span>
+</a>
+<nav class="sidenav">
+<a class="" href="business-dashboard.html">
+      لوحة التحكم
+     </a>
+<a class="" href="create-offer.html">
+      إنشاء عرض
+     </a>
+<a class="active" href="business-my-offers.html">
+      تجاربي
+     </a>
+<a class="" href="applicants.html">
+      الطلبات
+     </a>
+<a class="" href="business-analytics.html">
+      التحليلات
+     </a>
+<a class="" href="business-calendar.html">
+      التقويم
+     </a>
+<a class="" href="business-notifications.html">
+      الإشعارات
+     </a>
+<a class="" href="business-plans.html">
+      الباقات
+     </a>
+<a class="" href="business-onboarding.html">
+      دليل البدء
+     </a>
+<a class="" href="business-settings.html">
+      الإعدادات
+     </a>
+</nav>
+<div class="sidebottom">
+<div class="userchip">
+<strong>
+       حساب تجريبي
+      </strong>
+<br/>
+<small>
+       business
+      </small>
+</div>
+<a class="btn light full" href="index.html" data-logout="1">
+      تسجيل الخروج
+     </a>
+</div>
+</aside>
+<div class="main">
+<header class="dashtop">
+<div>
+<strong>
+       طلبات التعاون
+      </strong>
+<div class="muted" style="font-size:11px">
+       إدارة كل العروض
+      </div>
+</div>
+<div class="row">
+<a class="btn light" href="search.html">
+       بحث
+      </a>
+<button class="btn light">
+       إشعارات
+      </button>
+</div>
+</header>
+<main class="content">
+<div class="panel">
+<div class="tablewrap">
+<table class="table">
+<thead>
+<tr>
+<th>
+           العرض
+          </th>
+<th>
+           الموقع
+          </th>
+<th>
+           التاريخ
+          </th>
+<th>
+           الحالة
+          </th>
+<th>
+           المتقدمون
+          </th>
+<th>
+           الإجراءات
+          </th>
+</tr>
+</thead>
+<tbody id="bizOffersBody"></tbody>
+</table>
+</div>
+<div class="mada-empty hidden" id="bizOffersEmpty"><div class="mada-empty-icon">▦</div><h3>لا توجد عروض بعد</h3><p>ابدأ بإنشاء أول عرض لجذب صنّاع المحتوى.</p><a class="btn violet" href="create-offer.html">إنشاء عرض</a></div>
+</div>
+</main>
+</div>
+</div>
+<script src="assets/js/app.js">
+</script>
+<script src="assets/js/mada-i18n.js">
+</script>
+<script src="assets/js/mada-chatbot.js">
+</script>
+<script src="assets/js/data-service.js"></script>
+<script src="assets/js/ui-kit.js"></script>
+<script>
+(function(){
+  var body = document.getElementById("bizOffersBody");
+  var empty = document.getElementById("bizOffersEmpty");
+  var myBiz = MadaSession.currentBusinessUid();
+  var clearSkeleton = MadaUI.skeleton(body.closest(".panel"), { rows: 3 });
+
+  function rowHtml(o, applicantCount){
+    var statusLabel = o.status === "published" ? "متاح" : (o.status === "closed" ? "مغلق" : "مسودة");
+    return '<tr>'+
+      '<td>'+o.title+'</td>'+
+      '<td>'+o.city+'</td>'+
+      '<td>'+(o.eventDate||"—")+'</td>'+
+      '<td><span class="badge green">'+statusLabel+'</span></td>'+
+      '<td>'+applicantCount+'</td>'+
+      '<td><div class="row"><span class="badge gray">'+o.seatsFilled+'/'+o.seatsTotal+' مقعد</span>'+
+        '<a class="btn light" href="applicants.html">المتقدمون</a>'+
+        (o.status === "published" ? '<button class="btn red" data-close="'+o.offerId+'">إغلاق</button>' : '')+
+      '</div></td>'+
+    '</tr>';
+  }
+
+  function load(){
+    MadaDB.getOffers({ businessUid: myBiz }).then(function(offers){
+      var effective = offers.length ? offers : [];
+      // seed fallback so a fresh demo isn't empty on first load
+      var afterFallback = function(list){
+        clearSkeleton();
+        if(!list.length){ body.innerHTML=""; empty.classList.remove("hidden"); return; }
+        empty.classList.add("hidden");
+        Promise.all(list.map(function(o){ return MadaDB.getApplicants(o.offerId).then(function(a){ return a.length; }); }))
+          .then(function(counts){
+            body.innerHTML = list.map(function(o,i){ return rowHtml(o, counts[i]); }).join("");
+          });
+      };
+      if(!effective.length){
+        MadaDB.getOffer("off_1001").then(function(o){ afterFallback(o ? [o] : []); });
+      } else {
+        afterFallback(effective);
+      }
+    });
+  }
+
+  body.addEventListener("click", function(e){
+    var btn = e.target.closest("[data-close]");
+    if(!btn) return;
+    MadaUI.confirm({ title: "إغلاق العرض", body: "لن يستطيع صنّاع المحتوى التقديم على هذا العرض بعد إغلاقه.", danger: true, confirmLabel: "إغلاق" }).then(function(ok){
+      if(!ok) return;
+      MadaDB.updateOffer(btn.getAttribute("data-close"), { status: "closed" }).then(function(){
+        MadaUI.toast("تم إغلاق العرض", "info");
+        load();
+      });
+    });
+  });
+
+  load();
+})();
+</script>
+<script src="assets/js/mada-experience.js"></script><script src="assets/js/mada-mobile-ui.js"></script></body>
+</html>

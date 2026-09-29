@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+   The O | فرص وتجارب لصنّاع المحتوى
+  </title>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/ui-kit.css" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body data-role="guest">
+<header class="top">
+<div class="container topin">
+<a class="brand theo-brand" href="index.html" aria-label="The O"><img src="assets/images/the-o-logo.png" alt="The O"></a>
+<nav class="nav">
+<a href="how-it-works.html">كيف تعمل The O؟</a>
+<a href="index.html#discover">
+      اكتشف
+     </a>
+<a href="business-register.html">
+      للأعمال
+     </a>
+</nav>
+<a class="btn primary" href="login.html">
+     تسجيل الدخول
+    </a>
+</div>
+</header>
+<section class="hero mada-compact-hero">
+<div class="container hero-content">
+
+<h1>اكتشف تجارب <span>تستحق المشاركة</span></h1>
+<p>من مطاعم ومقاهٍ إلى فعاليات ومغامرات — تجمع The O صُنّاع المحتوى بأجمل التجارب في عُمان.</p>
+<div class="searchbar">
+<input placeholder="ابحث عن مكان أو تجربة..."/>
+<select>
+<option>
+       كل عُمان
+      </option>
+<option>
+       مسقط
+      </option>
+<option>
+       ظفار
+      </option>
+<option>
+       شمال الباطنة
+      </option>
+<option>
+       الداخلية
+      </option>
+</select>
+<a class="btn violet" href="#discover">
+      بحث
+     </a>
+</div>
+</div>
+</section>
+<section class="section" style="padding-top:36px;padding-bottom:12px">
+<div class="container">
+<div class="mada-cat-row" id="discoverCategoryFilters">
+<button class="mada-cat-item active" data-filter-cat="all" style="display:none">
+<span class="mada-cat-ic"></span><span>الكل</span>
+</button>
+<button class="mada-cat-item" data-filter-cat="مطاعم">
+<span class="mada-cat-ic"><svg viewBox="0 0 24 24"><path d="M7 3v7a2 2 0 0 0 2 2v9M7 3v18M11 3v9M15 3c-1.5 0-2 2-2 4s.5 5 2 5 2-3 2-5-.5-4-2-4zm0 9v9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span>مطاعم</span>
+</button>
+<button class="mada-cat-item" data-filter-cat="مقاهي">
+<span class="mada-cat-ic"><svg viewBox="0 0 24 24"><path d="M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8zM17 9h1.5a2.5 2.5 0 0 1 0 5H17M8 3v2M11 3v2M14 3v2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span>مقاهي</span>
+</button>
+<button class="mada-cat-item" data-filter-cat="فعاليات">
+<span class="mada-cat-ic"><svg viewBox="0 0 24 24"><rect height="16" rx="2" width="18" x="3" y="5"/><path d="M3 10h18M8 3v4M16 3v4" stroke-linecap="round"/></svg></span>
+<span>فعاليات</span>
+</button>
+<button class="mada-cat-item" data-filter-cat="منتجعات">
+<span class="mada-cat-ic"><svg viewBox="0 0 24 24"><path d="M3 21V9l9-5 9 5v12M9 21v-7h6v7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span>فنادق</span>
+</button>
+<button class="mada-cat-item" data-filter-cat="رياضة">
+<span class="mada-cat-ic"><svg viewBox="0 0 24 24"><path d="M4 12h2M18 12h2M6 8v8M18 8v8M8 12h8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span>لياقة</span>
+</button>
+<button class="mada-cat-item" data-filter-cat="صحراء">
+<span class="mada-cat-ic"><svg viewBox="0 0 24 24"><path d="M3 19l6-11 4 7 2-3 6 7H3z" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span>مغامرات</span>
+</button>
+</div>
+</div>
+</section>
+<section class="section" id="discover" style="padding-top:20px">
+<div class="container">
+<div class="section-head">
+<div>
+<span class="eyebrow">
+       اليوم في عُمان
+      </span>
+<h2>
+       فرص مختارة
+      </h2>
+</div>
+</div>
+<div class="mada-filter-row hidden" id="discoverFilters">
+<button class="filter-chip active" data-filter-city="all">كل المدن</button>
+<button class="filter-chip" data-filter-city="بوشر">بوشر</button>
+<button class="filter-chip" data-filter-city="السيب">السيب</button>
+<button class="filter-chip" data-filter-city="مطرح">مطرح</button>
+<button class="filter-chip" data-filter-city="صلالة">صلالة</button>
+<button class="filter-chip" data-filter-city="صحار">صحار</button>
+</div>
+<p class="muted hidden" id="discoverEmptyMsg" style="text-align:center;padding:20px 0">لا توجد فرص مطابقة لهذا الفلتر حاليًا.</p>
+<div class="grid cols3" id="discoverGrid">
+<article class="card mada-opp-card" data-city="بوشر" data-category="مطاعم">
+<div class="mada-opp-img">
+<a href="offer-guest.html"><div class="offer-img photo-restaurant"></div></a>
+<span class="mada-opp-cat">مطاعم</span>
+<button class="mada-opp-save" data-save="off-1001" aria-label="حفظ">♡</button>
+</div>
+<div class="mada-opp-body">
+<a href="offer-guest.html"><h3>تجربة عشاء بإطلالة بحرية</h3></a>
+<p class="mada-opp-biz">مطعم ذا فيو</p>
+<div class="mada-opp-meta"><span>📍 مسقط</span><span>📅 22 سبتمبر 2026</span></div>
+<a class="btn violet full" href="offer-guest.html">عرض التفاصيل</a>
+</div>
+</article>
+<article class="card mada-opp-card" data-city="السيب" data-category="مقاهي">
+<div class="mada-opp-img">
+<a href="offer-guest.html"><div class="offer-img photo-cafe"></div></a>
+<span class="mada-opp-cat">مقاهي</span>
+<button class="mada-opp-save" data-save="off-1002" aria-label="حفظ">♡</button>
+</div>
+<div class="mada-opp-body">
+<a href="offer-guest.html"><h3>رحلة استكشاف الجبال</h3></a>
+<p class="mada-opp-biz">Oman Adventures</p>
+<div class="mada-opp-meta"><span>📍 نزوى</span><span>📅 12 أكتوبر 2026</span></div>
+<a class="btn violet full" href="offer-guest.html">عرض التفاصيل</a>
+</div>
+</article>
+<article class="card mada-opp-card" data-city="بوشر" data-category="رياضة">
+<div class="mada-opp-img">
+<a href="offer-guest.html"><div class="offer-img photo-gym"></div></a>
+<span class="mada-opp-cat">لياقة</span>
+<button class="mada-opp-save" data-save="off-1003" aria-label="حفظ">♡</button>
+</div>
+<div class="mada-opp-body">
+<a href="offer-guest.html"><h3>مهرجان الموسيقى العُمانية</h3></a>
+<p class="mada-opp-biz">Oman Events</p>
+<div class="mada-opp-meta"><span>📍 صلالة</span><span>📅 5 أكتوبر 2026</span></div>
+<a class="btn violet full" href="offer-guest.html">عرض التفاصيل</a>
+</div>
+</article>
+</div>
+</div>
+</section>
+<div id="cities"></div>
+<section class="section white">
+<div class="container">
+<div class="section-head">
+<div>
+<span class="eyebrow">
+       كيف تعمل The O
+      </span>
+<h2>
+       أربع خطوات بسيطة
+      </h2>
+</div>
+</div>
+<div class="mada-how-layout"><div class="mada-how-image" aria-hidden="true"></div><div class="mada-timeline">
+<div class="mada-timeline-step">
+<b>01</b>
+<h4>اكتشف</h4>
+<p>تصفّح التجارب واطّلع على تفاصيلها بوضوح.</p>
+</div>
+<div class="mada-timeline-step">
+<b>02</b>
+<h4>قدّم</h4>
+<p>أرسل طلبك بخطوات قصيرة ومباشرة.</p>
+</div>
+<div class="mada-timeline-step">
+<b>03</b>
+<h4>يتم القبول</h4>
+<p>يراجع صاحب النشاط طلبك ويؤكد لك التفاصيل.</p>
+</div>
+<div class="mada-timeline-step">
+<b>04</b>
+<h4>استمتع بالتجربة</h4>
+<p>عِش التجربة وشاركها مع متابعيك.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section mada-business-section">
+<div class="container">
+<div class="mada-business-cta">
+<div class="mada-business-image" aria-hidden="true"></div>
+<div class="mada-business-copy">
+<span class="eyebrow">لأصحاب الأنشطة</span>
+<h2>عندك تجربة تستحق أن تُروى؟</h2>
+<p>انشر تجربتك وتواصل مع صُنّاع المحتوى المناسبين.</p>
+<a class="btn primary" href="business-register.html">إنشاء تجربة ←</a>
+</div>
+</div>
+</div>
+</section>
+<footer class="footer">
+<div class="container footerin">
+<div>
+<strong>
+      The O
+     </strong>
+<p>
+      منصة لاكتشاف فرص وتجارب التعاون بين صناع المحتوى والأنشطة في سلطنة عُمان.
+     </p>
+</div>
+<div class="row wrap">
+<a class="btn light" href="faq.html">
+      الأسئلة الشائعة
+     </a>
+<a class="btn light" href="business-register.html">
+      لأصحاب الأنشطة
+     </a>
+</div>
+</div>
+</footer>
+<script>
+(function(){
+  document.addEventListener("DOMContentLoaded", function(){
+    var grid = document.getElementById("discoverGrid");
+    if(!grid) return;
+    var cards = Array.from(grid.querySelectorAll(".card"));
+    var emptyMsg = document.getElementById("discoverEmptyMsg");
+    var state = { city: "all", cat: "all" };
+
+    function apply(){
+      var visible = 0;
+      cards.forEach(function(card){
+        var matchCity = state.city === "all" || card.getAttribute("data-city") === state.city;
+        var matchCat = state.cat === "all" || card.getAttribute("data-category") === state.cat;
+        var show = matchCity && matchCat;
+        card.classList.toggle("hidden", !show);
+        if(show) visible++;
+      });
+      emptyMsg.classList.toggle("hidden", visible !== 0);
+    }
+
+    document.getElementById("discoverFilters").addEventListener("click", function(e){
+      var btn = e.target.closest("[data-filter-city]");
+      if(!btn) return;
+      this.querySelectorAll(".filter-chip").forEach(function(b){ b.classList.remove("active"); });
+      btn.classList.add("active");
+      state.city = btn.getAttribute("data-filter-city");
+      apply();
+    });
+    document.getElementById("discoverCategoryFilters").addEventListener("click", function(e){
+      var btn = e.target.closest("[data-filter-cat]");
+      if(!btn) return;
+      var already = btn.classList.contains("active");
+      this.querySelectorAll(".mada-cat-item").forEach(function(b){ b.classList.remove("active"); });
+      if(already){
+        state.cat = "all";
+      } else {
+        btn.classList.add("active");
+        state.cat = btn.getAttribute("data-filter-cat");
+      }
+      apply();
+    });
+  });
+})();
+</script>
+<script src="assets/js/app.js">
+</script>
+<script src="assets/js/mada-i18n.js">
+</script>
+<script src="assets/js/mada-chatbot.js">
+</script>
+<script src="assets/js/data-service.js"></script>
+<script src="assets/js/ui-kit.js"></script>
+<script src="assets/js/mada-experience.js"></script><script src="assets/js/mada-mobile-ui.js"></script></body>
+</html>

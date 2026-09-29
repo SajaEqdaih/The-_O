@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+   المتقدمون
+  </title>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/ui-kit.css" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body data-role="business">
+<div class="dashboard">
+<aside class="sidebar">
+<a class="brand" href="business-dashboard.html">
+<span class="mark">
+      م
+     </span>
+<span>
+<strong>
+       The O للأعمال
+      </strong>
+<small>
+       BUSINESS
+      </small>
+</span>
+</a>
+<nav class="sidenav">
+<a class="" href="business-dashboard.html">
+      لوحة التحكم
+     </a>
+<a class="" href="create-offer.html">
+      إنشاء عرض
+     </a>
+<a class="" href="business-my-offers.html">
+      تجاربي
+     </a>
+<a class="active" href="applicants.html">
+      الطلبات
+     </a>
+<a class="" href="business-analytics.html">
+      التحليلات
+     </a>
+<a class="" href="business-calendar.html">
+      التقويم
+     </a>
+<a class="" href="business-notifications.html">
+      الإشعارات
+     </a>
+<a class="" href="business-plans.html">
+      الباقات
+     </a>
+<a class="" href="business-onboarding.html">
+      دليل البدء
+     </a>
+<a class="" href="business-settings.html">
+      الإعدادات
+     </a>
+</nav>
+<div class="sidebottom">
+<div class="userchip">
+<strong>
+       حساب تجريبي
+      </strong>
+<br/>
+<small>
+       business
+      </small>
+</div>
+<a class="btn light full" href="index.html" data-logout="1">
+      تسجيل الخروج
+     </a>
+</div>
+</aside>
+<div class="main">
+<header class="dashtop">
+<div>
+<strong>
+       المتقدمون
+      </strong>
+<div class="muted" style="font-size:11px">
+       بيانات صانع المحتوى وTrust Score
+      </div>
+</div>
+<div class="row">
+<a class="btn light" href="search.html">
+       بحث
+      </a>
+<button class="btn light">
+       إشعارات
+      </button>
+</div>
+</header>
+<main class="content">
+<div class="panel">
+<div class="row wrap" style="margin-bottom:14px">
+<label class="muted" style="font-size:11px">العرض:</label>
+<select class="compact-select" id="applicantsOfferSelect"></select>
+</div>
+<div class="tablewrap">
+<table class="table">
+<thead>
+<tr>
+<th>الاسم</th>
+<th>حساب اجتماعي</th>
+<th>المتابعون</th>
+<th>الرسالة</th>
+<th>الحالة</th>
+<th>الإجراءات</th>
+</tr>
+</thead>
+<tbody id="applicantsBody"></tbody>
+</table>
+</div>
+<div class="mada-empty hidden" id="applicantsEmpty"><div class="mada-empty-icon">O</div><h3>بانتظار طلبات صناع المحتوى الأولى</h3><p>عند وصول أول طلب تعاون سيظهر هنا مباشرة.</p><button type="button" class="btn light" id="copyOfferLinkBtn">نسخ رابط التجربة</button></div>
+</div>
+</main>
+</div>
+</div>
+<script src="assets/js/app.js">
+</script>
+<script src="assets/js/mada-i18n.js">
+</script>
+<script src="assets/js/mada-chatbot.js">
+</script>
+<script src="assets/js/data-service.js"></script>
+<script src="assets/js/ui-kit.js"></script>
+<script>
+(function(){
+  var body = document.getElementById("applicantsBody");
+  var empty = document.getElementById("applicantsEmpty");
+  var select = document.getElementById("applicantsOfferSelect");
+  var copyBtn = document.getElementById("copyOfferLinkBtn");
+  if(copyBtn) copyBtn.addEventListener("click", function(){
+    var url = location.origin + location.pathname.replace("applicants.html","offer-guest.html");
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(function(){MadaUI.toast("تم نسخ رابط التجربة", "success");}); }
+    else { MadaUI.toast("انسخ رابط التجربة من شريط العنوان", "info"); }
+  });
+  var STATUS_LABEL = { pending: ["قيد المراجعة","orange"], accepted: ["مقبول","green"], negotiating: ["قيد التفاوض","orange"], rejected: ["مرفوض","red"], in_review: ["بانتظار اعتماد التسليم","violet"], completed: ["مكتمل","violet"] };
+  var myBiz = MadaSession.currentBusinessUid();
+
+  function rowHtml(a){
+    var label = STATUS_LABEL[a.status] || ["—","gray"];
+    var cancelled=null; try{cancelled=JSON.parse(localStorage.getItem('theo_cancel_'+a.applicationId)||'null');}catch(e){}
+    var actions = cancelled ? '<div class="theo-cancel-info"><b>ألغى صانع المحتوى الحجز</b><br><span>'+cancelled.reason+'</span><br><small>تاريخ الإلغاء: '+new Date(cancelled.at).toLocaleString('ar-OM')+'</small></div>' : "";
+    if(!cancelled && (a.status === "pending" || a.status === "negotiating")){
+      actions = '<button class="btn green" data-act="accept" data-id="'+a.applicationId+'">قبول</button>'+
+                '<button class="btn light" data-act="negotiate" data-id="'+a.applicationId+'">تفاوض</button>'+
+                '<button class="btn red" data-act="reject" data-id="'+a.applicationId+'">رفض</button>';
+    } else if(!cancelled && a.status === "in_review"){
+      actions = '<button class="btn violet" data-act="review-proof" data-id="'+a.applicationId+'">مراجعة الإثبات</button>';
+    } else if(!cancelled && a.status === "accepted"){
+      actions = '<span class="muted" style="font-size:11px">بانتظار تسليم صانع المحتوى</span>';
+    } else if(!cancelled) {
+      actions = '<span class="muted" style="font-size:11px">—</span>';
+    }
+    return '<tr>'+
+      '<td>'+a.influencerName+'</td>'+
+      '<td>'+(a.influencerHandle||"")+'</td>'+
+      '<td>'+((a.followers||0)/1000).toFixed(1)+'K</td>'+
+      '<td style="max-width:220px;white-space:normal">'+(a.proposalNote||"")+'</td>'+
+      '<td><span class="badge '+label[1]+'">'+label[0]+'</span></td>'+
+      '<td class="row wrap">'+actions+'</td>'+
+    '</tr>';
+  }
+
+  function loadApplicants(offerId){
+    MadaDB.getApplicants(offerId).then(function(list){
+      if(!list.length){ body.innerHTML=""; empty.classList.remove("hidden"); return; }
+      empty.classList.add("hidden");
+      body.innerHTML = list.map(rowHtml).join("");
+    });
+  }
+
+  function loadOffers(){
+    MadaDB.getOffers({ businessUid: myBiz }).then(function(offers){
+      if(!offers.length){
+        // fall back to seeded demo offer so the page is never empty
+        MadaDB.getOffer("off_1001").then(function(o){ offers = o ? [o] : []; renderSelect(offers); });
+        return;
+      }
+      renderSelect(offers);
+    });
+  }
+  function renderSelect(offers){
+    select.innerHTML = offers.map(function(o){ return '<option value="'+o.offerId+'">'+o.title+'</option>'; }).join("");
+    if(offers[0]) loadApplicants(offers[0].offerId);
+  }
+  select.addEventListener("change", function(){ loadApplicants(select.value); });
+
+  body.addEventListener("click", function(e){
+    var btn = e.target.closest("[data-act]");
+    if(!btn) return;
+    var id = btn.getAttribute("data-id");
+    var act = btn.getAttribute("data-act");
+
+    if(act === "accept"){
+      MadaUI.confirm({ title: "قبول المتقدم", body: "سيتم إشعار صانع المحتوى بقبول طلبه والانتقال لمرحلة التنفيذ." }).then(function(ok){
+        if(!ok) return;
+        MadaDB.updateApplicationStatus(id, "accepted").then(function(){ MadaUI.toast("تم قبول المتقدم", "success"); loadApplicants(select.value); });
+      });
+    } else if(act === "reject"){
+      MadaUI.confirm({ title: "رفض المتقدم", body: "لن يتم إعلام المتقدم بسبب الرفض. هل تريد المتابعة؟", danger: true, confirmLabel: "رفض" }).then(function(ok){
+        if(!ok) return;
+        MadaDB.updateApplicationStatus(id, "rejected").then(function(){ MadaUI.toast("تم رفض المتقدم", "info"); loadApplicants(select.value); });
+      });
+    } else if(act === "negotiate"){
+      var dialog = MadaUI.openDialog({
+        title: "بدء تفاوض",
+        render: function(box){
+          box.innerHTML = '<div class="field"><label>رسالة التفاوض للمؤثر</label><textarea id="negoMsg" rows="3" placeholder="مثال: هل يمكن تعديل عدد الستوري إلى..."></textarea></div><button class="btn violet full" id="sendNego" style="margin-top:10px">إرسال</button>';
+          box.querySelector("#sendNego").addEventListener("click", function(){
+            MadaDB.updateApplicationStatus(id, "negotiating").then(function(){
+              MadaUI.toast("تم إرسال طلب التفاوض", "success");
+              dialog.close();
+              loadApplicants(select.value);
+            });
+          });
+        }
+      });
+    } else if(act === "review-proof"){
+      MadaDB.getApplicants(select.value).then(function(list){
+        var app = list.find(function(a){ return a.applicationId === id; });
+        var dialog = MadaUI.openDialog({
+          title: "مراجعة إثبات التسليم",
+          render: function(box){
+            box.innerHTML = '<p class="muted" style="font-size:12px">رابط الإثبات:</p><p><a href="'+(app.proofUrl||"#")+'" target="_blank" rel="noopener">'+(app.proofUrl||"—")+'</a></p>'+
+              (app.proofNote ? '<p class="muted" style="font-size:12px">'+app.proofNote+'</p>' : "")+
+              '<div class="row" style="margin-top:14px;gap:8px"><button class="btn green full" id="approveProof">اعتماد التسليم</button><button class="btn light full" id="requestChanges">طلب تعديل</button></div>';
+            box.querySelector("#approveProof").addEventListener("click", function(){
+              MadaDB.updateApplicationStatus(id, "completed").then(function(){ MadaUI.toast("تم اعتماد التسليم", "success"); dialog.close(); loadApplicants(select.value); });
+            });
+            box.querySelector("#requestChanges").addEventListener("click", function(){
+              MadaDB.updateApplicationStatus(id, "accepted").then(function(){ MadaUI.toast("تم إرجاع الطلب للمؤثر لتعديل التسليم", "warning"); dialog.close(); loadApplicants(select.value); });
+            });
+          }
+        });
+      });
+    }
+  });
+
+  loadOffers();
+})();
+</script>
+<script src="assets/js/mada-experience.js"></script><script src="assets/js/mada-mobile-ui.js"></script></body>
+</html>

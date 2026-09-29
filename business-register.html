@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+   إضافة نشاط | The O
+  </title>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/ui-kit.css" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body data-role="business">
+<div class="auth">
+<div class="auth-side">
+<div>
+<span class="eyebrow">
+      The O للأعمال
+     </span>
+<h1>
+      خلّي البداية سهلة وواضحة.
+     </h1>
+<p>
+      ثلاث بيانات فقط تفتح لك مساحة النشاط. بعدها بنشرح لك كل شيء خطوة خطوة داخل لوحة الأعمال.
+     </p>
+<div class="mada-trust-strip">
+<div class="mada-trust-item">
+<b>
+        1 · أنشئ النشاط
+       </b>
+<span>
+        الاسم، النوع والتواصل.
+       </span>
+</div>
+<div class="mada-trust-item">
+<b>
+        2 · اختر الأدوات
+       </b>
+<span>
+        شوف الباقات ومزايا كل واحدة بوضوح.
+       </span>
+</div>
+<div class="mada-trust-item">
+<b>
+        3 · أنشئ تجربة
+       </b>
+<span>
+        صور، موعد، متطلبات وقواعد.
+       </span>
+</div>
+</div>
+</div>
+</div>
+<div class="auth-main">
+<form class="auth-card form" id="mada-register-form">
+<a class="brand theo-brand" href="index.html" aria-label="The O"><img src="assets/images/the-o-logo.png" alt="The O"></a>
+<div class="mada-stepbar">
+<span class="mada-step active">
+</span>
+<span class="mada-step">
+</span>
+<span class="mada-step">
+</span>
+</div>
+<h2>
+      إضافة نشاط تجاري
+     </h2>
+<p class="muted">
+      ابدأ بالأساسيات فقط.
+     </p>
+<div class="field">
+<label>
+       اسم النشاط
+      </label>
+<input id="mada-name" name="name" placeholder="اسم المطعم، المقهى، الفندق أو النشاط" required=""/>
+</div>
+<div class="field">
+<label>
+       نوع النشاط
+      </label>
+<select id="mada-category">
+<option>
+        مطعم
+       </option>
+<option>
+        مقهى
+       </option>
+<option>
+        فندق
+       </option>
+<option>
+        نادي رياضي
+       </option>
+<option>
+        فعالية
+       </option>
+<option>
+        نشاط / تجربة
+       </option>
+</select>
+</div>
+<div class="field">
+<label>
+       المحافظة
+      </label>
+<select id="mada-governorate">
+<option>مسقط</option>
+<option>ظفار</option>
+<option>شمال الباطنة</option>
+<option>جنوب الباطنة</option>
+<option>الداخلية</option>
+<option>شمال الشرقية</option>
+<option>جنوب الشرقية</option>
+<option>الظاهرة</option>
+<option>البريمي</option>
+<option>مسندم</option>
+<option>الوسطى</option>
+</select>
+</div>
+<div class="field">
+<label>
+       رقم الجوال أو البريد الإلكتروني
+      </label>
+<input id="mada-contact" placeholder="+968 أو hello@business.com" required=""/>
+</div>
+<button class="btn violet full">
+      متابعة
+     </button>
+<div class="mada-auth-note">
+<strong>
+       بعد المتابعة:
+      </strong>
+<br/>
+      بتشوف خريطة واضحة: أكمل ملف النشاط → اختر الباقة → أنشئ أول تجربة. ما في فورم طويل مرة واحدة.
+     </div>
+<div class="mada-role-hint">
+<span>
+       أنت صانع محتوى؟
+      </span>
+<a href="influencer-register.html">
+       سجّل كصانع محتوى
+      </a>
+</div>
+</form>
+</div>
+</div>
+<script src="assets/js/app.js">
+</script>
+<script src="assets/js/mada-i18n.js">
+</script>
+<script src="assets/js/mada-chatbot.js">
+</script>
+<script>
+document.getElementById('mada-register-form')?.addEventListener('submit',function(e){
+ e.preventDefault();
+ var n=(document.getElementById('mada-name')?.value||'').trim();
+ var category=document.getElementById('mada-category')?.value||'';
+ var governorate=document.getElementById('mada-governorate')?.value||'';
+ var contact=(document.getElementById('mada-contact')?.value||'').trim();
+ if(!n || !contact){ (window.MadaUI?MadaUI.toast:function(){})('الرجاء تعبئة اسم النشاط وطريقة التواصل','warning'); return; }
+
+ var uid = 'biz_' + n.replace(/\s+/g,'-').toLowerCase() + '_' + Date.now().toString(36).slice(-4);
+ try{
+  localStorage.setItem('mada_user_name',n);
+  localStorage.setItem('mada_user_role','business');
+  localStorage.setItem('mada_registered','1');
+  localStorage.setItem('mada_last_uid', uid);
+ }catch(x){}
+ MadaSession.set({ role:'business', name:n, uid:uid });
+
+ function goToOnboarding(){
+  setTimeout(function(){location.href='business-onboarding.html'},350);
+ }
+ if(window.MadaDB){
+  MadaDB.updateUserProfile(uid,{
+   role:'business', name:n, category:category, city:governorate, phone:contact,
+   verified:false, onboardingStatus:'pending_first_offer', createdAt:new Date().toISOString()
+  }).then(function(){
+   if(window.MadaUI) MadaUI.toast('تم إنشاء حساب النشاط بنجاح','success');
+   goToOnboarding();
+  });
+ } else {
+  goToOnboarding();
+ }
+});
+</script>
+<script src="assets/js/data-service.js"></script>
+<script src="assets/js/ui-kit.js"></script>
+<script src="assets/js/mada-experience.js"></script><script src="assets/js/mada-mobile-ui.js"></script></body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>أهلًا بنشاطك | The O</title><link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/ui-kit.css" rel="stylesheet"/><link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body data-role="business"><main class="mada-welcome"><a class="brand theo-brand" href="index.html" aria-label="The O"><img src="assets/images/the-o-logo.png" alt="The O"></a>
+<section class="mada-welcome-card"><span class="eyebrow">بداية مرتبة</span><h1>مرحبًا <span data-fallback="صديقنا" data-mada-name=""></span> 👋</h1><p>تم إنشاء حسابك. الحين نمشي معك خطوة خطوة، بدون ما نفتح لك كل شيء مرة وحدة.</p>
+<div class="mada-journey"><div class="done"><b>01</b><span>إنشاء الحساب<small>تم ✓</small></span></div><div><b>02</b><span>جهّز نشاطك<small>الخطوة الحالية</small></span></div><div><b>03</b><span>أنشئ أول تجربة<small>بعدها مباشرة</small></span></div><div><b>04</b><span>استقبل الطلبات<small>ونتابعها من مكان واحد</small></span></div></div>
+<div class="mada-welcome-actions"><a class="btn violet" href="business-profile.html">كمّل ملف النشاط</a><a class="btn light" href="how-it-works.html">كيف تشتغل The O؟</a></div></section></main>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);
+  var n=(q.get('name')||'').trim();
+  try{ if(n) localStorage.setItem('mada_user_name',n); if(!n) n=localStorage.getItem('mada_user_name')||''; }catch(e){}
+  document.querySelectorAll('[data-mada-name]').forEach(function(el){el.textContent=n||el.getAttribute('data-fallback')||'صديقنا';});
+})();
+</script><script src="assets/js/data-service.js"></script>
+<script src="assets/js/ui-kit.js"></script>
+<script src="assets/js/app.js"></script><script src="assets/js/mada-i18n.js"></script><script src="assets/js/mada-chatbot.js"></script><script src="assets/js/mada-experience.js"></script><script src="assets/js/mada-mobile-ui.js"></script></body></html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+   دخول الإدارة
+  </title>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/ui-kit.css" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body data-role="admin">
+<div class="auth">
+<div class="auth-side">
+<div>
+<h1>
+      دخول آمن ومنفصل.
+     </h1>
+<p>
+      خاص بالإدارة ومالك المنصة.
+     </p>
+</div>
+</div>
+<div class="auth-main">
+<form class="auth-card form" onsubmit="event.preventDefault();toast('تم بنجاح');setTimeout(function(){location.href='admin-overview.html'},500)">
+<a class="brand theo-brand" href="index.html" aria-label="The O"><img src="assets/images/the-o-logo.png" alt="The O"></a>
+<h2>
+      دخول الإدارة
+     </h2>
+<div class="field">
+<label>
+       البريد
+      </label>
+<input required="" type="email"/>
+</div>
+<div class="field">
+<label>
+       كلمة المرور
+      </label>
+<input required="" type="password"/>
+</div>
+<div class="field">
+<label>
+       رمز 2FA
+      </label>
+<input/>
+</div>
+<button class="btn violet full">
+      متابعة
+     </button>
+</form>
+</div>
+</div>
+<script src="assets/js/app.js">
+</script>
+<script src="assets/js/mada-i18n.js">
+</script>
+<script src="assets/js/mada-chatbot.js">
+</script>
+<script src="assets/js/data-service.js"></script>
+<script src="assets/js/ui-kit.js"></script>
+<script src="assets/js/mada-experience.js"></script><script src="assets/js/mada-mobile-ui.js"></script></body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>إكمال إعداد الحساب | The O</title>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/ui-kit.css" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body class="mada-clean-page" data-role="influencer">
+<header class="top">
+<div class="container topin">
+<a class="brand theo-brand" href="index.html" aria-label="The O"><img src="assets/images/the-o-logo.png" alt="The O"></a>
+<span class="mada-setup-label">إعداد حساب صانع المحتوى</span>
+</div>
+</header>
+<main class="mada-setup-shell">
+<section class="mada-setup-card">
+<div class="mada-setup-status">تم إنشاء الحساب ✓</div>
+<h1>مرحبًا <span data-fallback="بك" data-mada-name=""></span></h1>
+<p class="mada-setup-lead">بقيت خطوة بسيطة حتى نعرض لك فرصًا أقرب لاهتماماتك.</p>
+<div aria-label="الخطوة الثانية من خطوتين" class="mada-setup-progress">
+<span class="done"></span><span class="done"></span>
+</div>
+<div class="mada-step-caption">الخطوة 2 من 2</div>
+<div class="mada-setup-section">
+<h2>ما المجالات التي تهمك؟</h2>
+<p>يمكنك اختيار أكثر من مجال، وتستطيع تعديلها لاحقًا من حسابك.</p>
+<div class="mada-interest-grid clean">
+<button type="button">مطاعم وتجارب طعام</button>
+<button type="button">مقاهي</button>
+<button type="button">رياضة ولياقة</button>
+<button type="button">فعاليات</button>
+<button type="button">فنادق وإقامة</button>
+<button type="button">رحلات ومغامرات</button>
+</div>
+</div>
+<div class="mada-setup-actions">
+<a class="btn primary" href="index.html#discover">استعرض الفرص</a>
+<a class="btn light" href="influencer-my-offers.html">متابعة طلبات التعاون</a>
+</div>
+<div class="mada-setup-note">
+      أنت الآن داخل <strong>مساحة صانع المحتوى</strong>. لن يتم نقلك إلى صفحات أصحاب الأنشطة إلا إذا اخترت ذلك بنفسك.
+    </div>
+</section>
+</main>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);
+  var n=(q.get('name')||'').trim();
+  try{ if(n) localStorage.setItem('mada_user_name',n); if(!n) n=localStorage.getItem('mada_user_name')||''; }catch(e){}
+  document.querySelectorAll('[data-mada-name]').forEach(function(el){el.textContent=n||el.getAttribute('data-fallback')||'بك';});
+  document.querySelectorAll('.mada-interest-grid button').forEach(function(b){
+    b.addEventListener('click',function(){
+      b.classList.toggle('active');
+      try{
+        localStorage.setItem('mada_interests',
+          Array.from(document.querySelectorAll('.mada-interest-grid button.active'))
+          .map(function(x){return x.textContent.trim()}).join('|'));
+      }catch(e){}
+    });
+  });
+})();
+</script>
+<script src="assets/js/data-service.js"></script>
+<script src="assets/js/ui-kit.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/mada-i18n.js"></script>
+<script src="assets/js/mada-chatbot.js"></script>
+<script src="assets/js/mada-experience.js"></script>
+<script src="assets/js/mada-mobile-ui.js"></script></body>
+</html>

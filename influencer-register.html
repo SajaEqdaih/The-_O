@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+   إنشاء حساب صانع محتوى | The O
+  </title>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/ui-kit.css" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body data-role="influencer">
+<div class="auth">
+<div class="auth-side">
+<div>
+<span class="eyebrow">
+      للصنّاع
+     </span>
+<h1>
+      سجّل بسرعة وكمّل من وين وقفت.
+     </h1>
+<p>
+      البداية بسيطة: ثلاث معلومات أساسية، وباقي ملفك تقدر تكمله بعدين.
+     </p>
+<div class="mada-trust-strip">
+<div class="mada-trust-item">
+<b>
+        1 · بياناتك
+       </b>
+<span>
+        اسم + وسيلة تواصل + موقع.
+       </span>
+</div>
+<div class="mada-trust-item">
+<b>
+        2 · ادخل
+       </b>
+<span>
+        شاهد التفاصيل وقدّم بسهولة.
+       </span>
+</div>
+<div class="mada-trust-item">
+<b>
+        3 · كمل لاحقًا
+       </b>
+<span>
+        مجالك وباقي الملف وقت ما يناسبك.
+       </span>
+</div>
+</div>
+</div>
+</div>
+<div class="auth-main">
+<form class="auth-card form" id="mada-register-form">
+<a class="brand theo-brand" href="index.html" aria-label="The O"><img src="assets/images/the-o-logo.png" alt="The O"></a>
+<div class="mada-stepbar">
+<span class="mada-step active">
+</span>
+<span class="mada-step">
+</span>
+</div>
+<h2>
+      إنشاء حساب
+     </h2>
+<p class="muted">
+      دقيقة تقريبًا، وبعدها تدخل على طول.
+     </p>
+<div class="field">
+<label>
+       الاسم
+      </label>
+<input id="mada-name" name="name" placeholder="اسمك" required=""/>
+</div>
+<div class="field">
+<label>
+       رقم الجوال أو البريد الإلكتروني
+      </label>
+<input placeholder="+968 أو name@email.com" required=""/>
+</div>
+<div class="field">
+<label>
+       المحافظة
+      </label>
+<select>
+<option>
+        مسقط
+       </option>
+<option>
+        ظفار
+       </option>
+<option>
+        شمال الباطنة
+       </option>
+<option>
+        جنوب الباطنة
+       </option>
+<option>
+        الداخلية
+       </option>
+<option>
+        شمال الشرقية
+       </option>
+<option>
+        جنوب الشرقية
+       </option>
+<option>
+        الظاهرة
+       </option>
+<option>
+        البريمي
+       </option>
+<option>
+        مسندم
+       </option>
+<option>
+        الوسطى
+       </option>
+</select>
+</div>
+<button class="btn violet full">
+      إنشاء الحساب والمتابعة
+     </button>
+<div class="mada-auth-note">
+<strong>
+       شو بيصير بعدها؟
+      </strong>
+<br/>
+      بتدخل مباشرة على تفاصيل الفرصة. ملفك الكامل مش شرط تخلصه الآن.
+     </div>
+<div class="mada-role-hint">
+<span>
+       للأنشطة التجارية
+      </span>
+<a href="business-register.html">
+       سجّل كنشاط بدلًا من ذلك
+      </a>
+</div>
+</form>
+</div>
+</div>
+<script src="assets/js/app.js">
+</script>
+<script src="assets/js/mada-i18n.js">
+</script>
+<script src="assets/js/mada-chatbot.js">
+</script>
+<script>
+document.getElementById('mada-register-form')?.addEventListener('submit',function(e){
+ e.preventDefault();
+ var n=(document.getElementById('mada-name')?.value||'').trim();
+ try{localStorage.setItem('mada_user_name',n);localStorage.setItem('mada_user_role','creator');localStorage.setItem('mada_registered','1');localStorage.setItem('mada_last_uid','inf_sara');localStorage.setItem('mada_user_session',JSON.stringify({role:'creator',name:n,uid:'inf_sara'}));}catch(x){}
+ if(window.MadaUI) MadaUI.toast('تم يا '+(n||'صديقنا')+' 👌 حسابك جاهز');
+ setTimeout(function(){location.href='creator-welcome.html?name='+encodeURIComponent(n)},450);
+});
+</script><script src="assets/js/data-service.js"></script>
+<script src="assets/js/ui-kit.js"></script>
+<script src="assets/js/mada-experience.js"></script><script src="assets/js/mada-mobile-ui.js"></script></body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+   إنشاء عرض
+  </title>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/ui-kit.css" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body data-role="business">
+<div class="dashboard">
+<aside class="sidebar">
+<a class="brand" href="business-dashboard.html">
+<span class="mark">
+      م
+     </span>
+<span>
+<strong>
+       The O للأعمال
+      </strong>
+<small>
+       BUSINESS
+      </small>
+</span>
+</a>
+<nav class="sidenav">
+<a class="" href="business-dashboard.html">
+      لوحة التحكم
+     </a>
+<a class="active" href="create-offer.html">
+      إنشاء عرض
+     </a>
+<a class="" href="business-my-offers.html">
+      تجاربي
+     </a>
+<a class="" href="applicants.html">
+      الطلبات
+     </a>
+<a class="" href="business-analytics.html">
+      التحليلات
+     </a>
+<a class="" href="business-calendar.html">
+      التقويم
+     </a>
+<a class="" href="business-notifications.html">
+      الإشعارات
+     </a>
+<a class="" href="business-plans.html">
+      الباقات
+     </a>
+<a class="" href="business-onboarding.html">
+      دليل البدء
+     </a>
+<a class="" href="business-settings.html">
+      الإعدادات
+     </a>
+</nav>
+<div class="sidebottom">
+<div class="userchip">
+<strong>
+       حساب تجريبي
+      </strong>
+<br/>
+<small>
+       business
+      </small>
+</div>
+<a class="btn light full" href="index.html" data-logout="1">
+      تسجيل الخروج
+     </a>
+</div>
+</aside>
+<div class="main">
+<header class="dashtop">
+<div>
+<strong>
+       إنشاء عرض جديد
+      </strong>
+<div class="muted" style="font-size:11px">
+       تفاصيل كاملة وواقعية
+      </div>
+</div>
+<div class="row">
+<a class="btn light" href="search.html">
+       بحث
+      </a>
+<button class="btn light">
+       إشعارات
+      </button>
+</div>
+</header>
+<main class="content">
+<div class="panel" id="quickTemplatesPanel" style="max-width:900px;margin:0 auto 14px">
+<h3 style="margin:0 0 4px">ابدأ بسرعة من نموذج جاهز</h3>
+<p class="muted" style="font-size:12px;margin:0 0 12px">اختر نموذجًا وعدّل عليه — أسرع طريقة لنشر أول تجربة خلال أقل من دقيقة.</p>
+<div class="row wrap" style="gap:8px">
+<button type="button" class="btn light" data-template="dinner">عشاء لشخصين + 3 ستوريات</button>
+<button type="button" class="btn light" data-template="coffee">تجربة قهوة + ريل واحد</button>
+<button type="button" class="btn light" data-template="stay">إقامة ليلة + جولة تصوير</button>
+</div>
+</div>
+<form class="panel form" style="max-width:900px;margin:auto" id="offerForm">
+<div class="mada-wizard-step"><span class="mada-wizard-num">1</span><h3>الصور</h3></div>
+<div class="field">
+<label>
+        صور العرض
+       </label>
+<label class="mada-upload" id="offerUploadBox">
+  <span id="offerUploadHint">اضغط لاختيار صورة أو اسحبها هنا</span>
+  <input accept="image/*" id="offerImageInput" type="file"/>
+</label>
+</div>
+<div class="mada-wizard-step"><span class="mada-wizard-num">2</span><h3>الأساسيات</h3></div>
+<div class="field">
+<label>
+        العنوان
+       </label>
+<input id="offerTitle"/>
+</div>
+<div class="grid cols2">
+<div class="field">
+<label>
+         التصنيف
+        </label>
+<select id="offerCategory">
+<option>
+          مطاعم
+         </option>
+<option>
+          مقاهي
+         </option>
+<option>
+          فنادق
+         </option>
+</select>
+</div>
+<div class="field">
+<label>
+         المحافظة
+        </label>
+<select id="offerGovernorate">
+<option>
+          مسقط
+         </option>
+<option>
+          ظفار
+         </option>
+<option>
+          شمال الباطنة
+         </option>
+<option>
+          جنوب الباطنة
+         </option>
+<option>
+          الداخلية
+         </option>
+<option>
+          شمال الشرقية
+         </option>
+<option>
+          جنوب الشرقية
+         </option>
+<option>
+          الظاهرة
+         </option>
+<option>
+          البريمي
+         </option>
+<option>
+          مسندم
+         </option>
+<option>
+          الوسطى
+         </option>
+</select>
+</div>
+</div>
+<div class="grid cols2">
+<div class="field">
+<label>
+         الولاية / المدينة
+        </label>
+<select id="offerCity">
+<option>
+          بوشر
+         </option>
+<option>
+          السيب
+         </option>
+<option>
+          مطرح
+         </option>
+<option>
+          مسقط
+         </option>
+<option>
+          العامرات
+         </option>
+<option>
+          قريات
+         </option>
+</select>
+</div>
+<div class="field">
+<label>
+         المنطقة
+        </label>
+<input id="offerArea" placeholder="مثال: القرم، الموج، الحافة..."/>
+</div>
+</div>
+<div class="mada-wizard-step"><span class="mada-wizard-num">3</span><h3>المقابل المقدَّم</h3></div>
+<div class="grid cols2">
+<div class="field">
+<label>نوع المقابل</label>
+<select id="offerCompType">
+<option value="barter">مقايضة (تجربة/إقامة/منتج)</option>
+<option value="paid">مدفوع</option>
+<option value="commission">عمولة على المبيعات</option>
+</select>
+</div>
+<div class="field">
+<label>القيمة التقديرية (ر.ع) — اختياري إذا مقايضة</label>
+<input id="offerBudget" min="0" type="number" value="0"/>
+</div>
+</div>
+<div class="field">
+<label>
+        وصف الموقع - اختياري
+       </label>
+<input placeholder="مثال: بالقرب من... / داخل مجمع..."/>
+</div>
+<div class="location-note">
+       📍 النموذج الحالي يستخدم المحافظة + الولاية + المنطقة. يمكن ربط خريطة/GPS لاحقًا في النسخة الإنتاجية.
+      </div>
+<div class="grid cols2">
+<div class="field">
+<label>
+         التاريخ
+        </label>
+<input type="date"/>
+</div>
+<div class="field">
+<label>
+         الوقت
+        </label>
+<input type="time"/>
+</div>
+</div>
+<div class="mada-wizard-step"><span class="mada-wizard-num">4</span><h3>وصف التجربة</h3></div>
+<div class="field">
+<div class="row" style="justify-content:space-between;align-items:center;margin-bottom:6px">
+<label style="margin:0">
+        الوصف
+       </label>
+<button type="button" id="smartDraftBtn" class="mada-smart-draft-btn">
+<span id="smartDraftIcon">✨</span> اقتراح وصف
+</button>
+</div>
+<textarea id="offerDescription" rows="4"></textarea>
+<div class="mada-smart-draft-badge hidden" id="smartDraftBadge">تمت الصياغة! يمكنك التعديل عليها بحرية</div>
+</div>
+<div class="mada-wizard-step"><span class="mada-wizard-num">5</span><h3>القواعد والتسليمات</h3></div>
+<div class="field">
+<label>
+        القواعد (سطر لكل قاعدة)
+       </label>
+<textarea id="offerRules" placeholder="الحضور في الموعد&#10;ذكر اسم الحساب في المحتوى" rows="3"></textarea>
+</div>
+<div class="field">
+<label>
+        Deliverables (سطر لكل عنصر)
+       </label>
+<textarea id="offerDeliverables" placeholder="2 ستوري&#10;ريل واحد" rows="3"></textarea>
+</div>
+<div class="mada-wizard-step"><span class="mada-wizard-num">6</span><h3>الإعدادات النهائية والنشر</h3></div>
+<div class="grid cols2">
+<div class="field">
+<label>
+         المقاعد
+        </label>
+<input id="offerSeats" type="number" value="4"/>
+</div>
+<div class="field">
+<label>
+         الحد الأدنى للمتابعين
+        </label>
+<input id="offerMinFollowers" placeholder="5K+"/>
+</div>
+</div>
+<section class="theo-live-preview" id="theoLivePreview" aria-live="polite">
+<div class="theo-preview-head"><div><span class="eyebrow">معاينة مباشرة</span><h3>هكذا ستظهر التجربة لصانع المحتوى</h3></div><span class="badge blue">Preview</span></div>
+<article class="theo-preview-card">
+<div class="theo-preview-image photo-restaurant"><span class="theo-preview-category" id="previewCategory">تجربة</span></div>
+<div class="theo-preview-body"><h3 id="previewTitle">عنوان التجربة</h3><p id="previewDescription">اكتب وصف التجربة وسيظهر هنا مباشرة.</p><div class="theo-preview-meta"><span id="previewLocation">📍 عُمان</span><span id="previewSeats">◉ 4 مقاعد</span></div></div>
+</article></section>
+<button class="btn violet" id="publishOfferBtn" type="button">
+       نشر العرض
+      </button>
+</form>
+</main>
+</div>
+</div>
+<script src="assets/js/app.js">
+</script>
+<script src="assets/js/mada-i18n.js">
+</script>
+<script src="assets/js/mada-chatbot.js">
+</script>
+<script src="assets/js/data-service.js"></script>
+<script src="assets/js/ui-kit.js"></script>
+<script>
+(function(){
+  var TEMPLATES = {
+    dinner: { title:"عشاء لشخصين", description:"عشاء تجريبي كامل يشمل الأطباق الرئيسية والحلا، مناسب لمحتوى فيديو وصور دافئة.", category:"مطاعم", deliverables:"2 ستوري\nريل واحد\nريفيو مختصر", rules:"الحضور في الموعد المحدد\nذكر اسم الحساب في المحتوى", seats:4, comp:"barter" },
+    coffee: { title:"تجربة قهوة صباحية", description:"زيارة صباحية لتجربة قائمة المشروبات الجديدة وتصويرها بأسلوب هادئ.", category:"مقاهي", deliverables:"ريل واحد\n3 صور", rules:"التصوير خلال ساعات الصباح\nالوسم الرسمي للحساب", seats:5, comp:"barter" },
+    stay: { title:"إقامة ليلة وجولة تصوير", description:"إقامة ليلة كاملة مقابل حزمة محتوى متكاملة عن المكان ومرافقه.", category:"فنادق", deliverables:"فيديو جولة\n4 ستوري\nمنشور واحد", rules:"حجز مسبق مطلوب\nالتسليم خلال أسبوع من المغادرة", seats:2, comp:"barter" }
+  };
+  document.getElementById("quickTemplatesPanel").addEventListener("click", function(e){
+    var btn = e.target.closest("[data-template]");
+    if(!btn) return;
+    var t = TEMPLATES[btn.getAttribute("data-template")];
+    if(!t) return;
+    document.getElementById("offerTitle").value = t.title;
+    document.getElementById("offerDescription").value = t.description;
+    document.getElementById("offerCategory").value = t.category;
+    document.getElementById("offerDeliverables").value = t.deliverables;
+    document.getElementById("offerRules").value = t.rules;
+    document.getElementById("offerSeats").value = t.seats;
+    document.getElementById("offerCompType").value = t.comp;
+    MadaUI.toast("تم تعبئة النموذج — عدّل أي تفاصيل ثم انشر", "success");
+    document.getElementById("offerForm").scrollIntoView({ behavior:"smooth", block:"start" });
+  });
+
+  if(new URLSearchParams(location.search).get("from") === "onboarding"){
+    var banner = document.createElement("div");
+    banner.className = "panel";
+    banner.style.cssText = "max-width:900px;margin:0 auto 14px;border-color:#C9E7DF;background:var(--brand-tint)";
+    banner.innerHTML = "<strong>هذا أول عرض لك 🎉</strong><p class=\"muted\" style=\"margin:6px 0 0;font-size:12px\">جهّزنا لك صياغة أولية تلقائيًا بالأسفل — عدّل عليها بحرية أو اختر نموذجًا جاهزًا.</p>";
+    document.getElementById("quickTemplatesPanel").insertAdjacentElement("beforebegin", banner);
+    setTimeout(function(){ document.getElementById("smartDraftBtn").click(); }, 500);
+  }
+
+  // ---- Smart drafting assistant ----
+  var CATEGORY_DESCRIPTIONS = {
+    "مطعم": "دعوة عشاء وتجربة ضيافة راقية لشخصين لتذوق أطباقنا الخاصة ومشاركتها مع متابعيك بأجواء مميزة.",
+    "مطاعم": "دعوة عشاء وتجربة ضيافة راقية لشخصين لتذوق أطباقنا الخاصة ومشاركتها مع متابعيك بأجواء مميزة.",
+    "مقهى": "دعوة لتجربة قهوة مختصة وأجواء هادئة، لتوثيقها ومشاركتها مع متابعيك بطريقة أنيقة.",
+    "مقاهي": "دعوة لتجربة قهوة مختصة وأجواء هادئة، لتوثيقها ومشاركتها مع متابعيك بطريقة أنيقة.",
+    "فندق": "دعوة لإقامة مميزة واستكشاف مرافقنا، لتوثيق التجربة كاملة ومشاركتها مع متابعيك.",
+    "فنادق": "دعوة لإقامة مميزة واستكشاف مرافقنا، لتوثيق التجربة كاملة ومشاركتها مع متابعيك.",
+    "نادي رياضي": "دعوة لتجربة تدريب مميزة في نادينا، لتوثيقها ومشاركتها مع متابعيك بحماس صادق.",
+    "فعالية": "دعوة لحضور فعاليتنا وتغطيتها بأسلوبك الخاص لمشاركتها مع متابعيك.",
+    "نشاط / تجربة": "دعوة لتجربة فريدة تستحق التوثيق والمشاركة مع متابعيك."
+  };
+  function glowField(field){
+    field.classList.remove("mada-field-glow");
+    void field.offsetWidth;
+    field.classList.add("mada-field-glow");
+  }
+  document.getElementById("smartDraftBtn").addEventListener("click", function(){
+    var btn = this;
+    if(btn.disabled) return;
+    btn.disabled = true; btn.classList.add("loading");
+    var lookup = window.MadaDB ? MadaDB.getUserProfile(MadaSession.currentBusinessUid()) : Promise.resolve(null);
+    lookup.then(function(profile){
+      var category = (profile && profile.category) || "مطعم";
+      setTimeout(function(){
+        var descField = document.getElementById("offerDescription");
+        descField.value = CATEGORY_DESCRIPTIONS[category] || CATEGORY_DESCRIPTIONS["مطعم"];
+        glowField(descField);
+
+        var rulesField = document.getElementById("offerRules");
+        if(!rulesField.value.trim()){
+          rulesField.value = "الحضور بالموعد المحدد مسبقاً\nمنشن وتاغ لحساب المنشأة الرسمي\nالالتزام بجودة تصوير احترافية";
+          glowField(rulesField);
+        }
+        var delivField = document.getElementById("offerDeliverables");
+        if(!delivField.value.trim()){
+          delivField.value = "3 تحديثات قصيرة توثق التجربة كاملة\nفيديو قصير\nتقييم التجربة على خرائط جوجل";
+          glowField(delivField);
+        }
+        var seatsField = document.getElementById("offerSeats");
+        if(!seatsField.value || parseInt(seatsField.value,10) <= 0) seatsField.value = "4";
+        var followersField = document.getElementById("offerMinFollowers");
+        if(!followersField.value.trim()) followersField.value = "+5K";
+
+        btn.disabled = false; btn.classList.remove("loading");
+        var badge = document.getElementById("smartDraftBadge");
+        badge.classList.add("show");
+        setTimeout(function(){ badge.classList.remove("show"); }, 2600);
+        saveDraft();
+      }, 1000);
+    });
+  });
+
+  // ---- Draft auto-save & recovery ----
+  var DRAFT_KEY = "mada_draft_offer";
+  var DRAFT_FIELDS = ["offerTitle","offerCategory","offerGovernorate","offerCity","offerArea","offerCompType","offerBudget","offerDescription","offerRules","offerDeliverables","offerSeats","offerMinFollowers"];
+  var draftTimer = null;
+  function saveDraft(){
+    var data = {};
+    DRAFT_FIELDS.forEach(function(id){ var f=document.getElementById(id); if(f) data[id]=f.value; });
+    try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(data)); }catch(e){}
+  }
+  function scheduleDraftSave(){ clearTimeout(draftTimer); draftTimer = setTimeout(saveDraft, 500); }
+  function clearDraft(){ try{ localStorage.removeItem(DRAFT_KEY); }catch(e){} }
+  (function restoreDraft(){
+    var raw; try{ raw = localStorage.getItem(DRAFT_KEY); }catch(e){}
+    if(!raw) return;
+    try{
+      var data = JSON.parse(raw);
+      var hasContent = Object.keys(data).some(function(k){ return (data[k]||"").toString().trim(); });
+      if(!hasContent) return;
+      DRAFT_FIELDS.forEach(function(id){ var f=document.getElementById(id); if(f && data[id] != null) f.value = data[id]; });
+      MadaUI.toast("تم استرجاع مسودة العرض غير المكتملة", "info");
+    }catch(e){}
+  })();
+  DRAFT_FIELDS.forEach(function(id){
+    var f = document.getElementById(id);
+    if(f) f.addEventListener("input", scheduleDraftSave);
+  });
+
+  // ---- Live card preview ----
+  function updateLivePreview(){
+    var title=(document.getElementById("offerTitle").value||"").trim();
+    var desc=(document.getElementById("offerDescription").value||"").trim();
+    var cat=document.getElementById("offerCategory").value||"تجربة";
+    var gov=(document.getElementById("offerGovernorate")||{}).value||"";
+    var city=(document.getElementById("offerCity")||{}).value||"";
+    var seats=document.getElementById("offerSeats").value||"4";
+    document.getElementById("previewTitle").textContent=title||"عنوان التجربة";
+    document.getElementById("previewDescription").textContent=desc||"اكتب وصف التجربة وسيظهر هنا مباشرة.";
+    document.getElementById("previewCategory").textContent=cat;
+    document.getElementById("previewLocation").textContent="📍 "+([city,gov].filter(Boolean).join("، ")||"عُمان");
+    document.getElementById("previewSeats").textContent="◉ "+seats+" مقاعد";
+  }
+  ["offerTitle","offerDescription","offerCategory","offerGovernorate","offerCity","offerSeats"].forEach(function(id){
+    var f=document.getElementById(id); if(f){f.addEventListener("input",updateLivePreview);f.addEventListener("change",updateLivePreview);}
+  });
+  updateLivePreview();
+
+  var uploadBox = document.getElementById("offerUploadBox");
+  var imageInput = document.getElementById("offerImageInput");
+  MadaUI.previewImage(imageInput, uploadBox);
+  imageInput.addEventListener("change", function(){
+    document.getElementById("offerUploadHint").textContent = "";
+  });
+
+  document.getElementById("publishOfferBtn").addEventListener("click", function(){
+    var title = document.getElementById("offerTitle").value.trim();
+    var description = document.getElementById("offerDescription").value.trim();
+    var city = document.getElementById("offerCity").value;
+    if(!title || !description){
+      MadaUI.toast("الرجاء تعبئة العنوان والوصف على الأقل", "warning");
+      return;
+    }
+    var linesOf = function(id){
+      return document.getElementById(id).value.split("\n").map(function(s){return s.trim();}).filter(Boolean);
+    };
+    var offerData = {
+      businessUid: MadaSession.currentBusinessUid(),
+      businessName: (MadaSession.get().name || "حساب تجريبي"),
+      title: title,
+      description: description,
+      category: document.getElementById("offerCategory").value,
+      city: city,
+      platformsRequired: ["Content platform"],
+      compensationType: document.getElementById("offerCompType").value,
+      budget: parseFloat(document.getElementById("offerBudget").value) || 0,
+      deliverables: linesOf("offerDeliverables"),
+      rulesList: linesOf("offerRules"),
+      seatsTotal: parseInt(document.getElementById("offerSeats").value, 10) || 1,
+      imageClass: "photo-restaurant"
+    };
+    MadaDB.createOffer(offerData).then(function(){
+      clearDraft();
+      MadaUI.toast("تم نشر العرض بنجاح", "success");
+      var cameFromOnboarding = new URLSearchParams(location.search).get("from") === "onboarding";
+      setTimeout(function(){ window.location.href = cameFromOnboarding ? "business-dashboard.html?first_offer=1" : "business-my-offers.html"; }, 900);
+    });
+  });
+})();
+</script>
+<script src="assets/js/mada-experience.js"></script><script src="assets/js/mada-mobile-ui.js"></script></body>
+</html>

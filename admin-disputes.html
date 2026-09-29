@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+   الشكاوى
+  </title>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/ui-kit.css" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body data-role="admin">
+<div class="dashboard">
+<aside class="sidebar">
+<a class="brand" href="admin-overview.html">
+<span class="mark">
+      م
+     </span>
+<span>
+<strong>
+       إدارة The O
+      </strong>
+<small>
+       ADMIN
+      </small>
+</span>
+</a>
+<nav class="sidenav">
+<a class="" href="admin-overview.html">
+      نظرة عامة
+     </a>
+<a class="" href="admin-offers.html">
+      العروض
+     </a>
+<a class="" href="admin-users.html">
+      المستخدمون
+     </a>
+<a class="active" href="admin-disputes.html">
+      الشكاوى
+     </a>
+<a class="" href="admin-verifications.html">
+      التوثيق
+     </a>
+<a class="" href="admin-cities.html">
+      المدن
+     </a>
+<a class="" href="admin-content.html">
+      المحتوى
+     </a>
+<a class="" href="admin-activity.html">
+      Activity Log
+     </a>
+<a class="" href="relationship-details.html">
+      العلاقات
+     </a>
+</nav>
+<div class="sidebottom">
+<div class="userchip">
+<strong>
+       حساب تجريبي
+      </strong>
+<br/>
+<small>
+       admin
+      </small>
+</div>
+<a class="btn light full" href="index.html" data-logout="1">
+      تسجيل الخروج
+     </a>
+</div>
+</aside>
+<div class="main">
+<header class="dashtop">
+<div>
+<strong>
+       الشكاوى والحالات
+      </strong>
+<div class="muted" style="font-size:11px">
+       Support Cases
+      </div>
+</div>
+<div class="row">
+<a class="btn light" href="search.html">
+       بحث
+      </a>
+<button class="btn light">
+       إشعارات
+      </button>
+</div>
+</header>
+<main class="content">
+<div class="grid cols2" id="disputesGrid">
+<div class="panel" data-case="CASE-210">
+<span class="badge red">
+        CASE-210
+       </span>
+<h3>
+        صانع المحتوى لم يحضر
+       </h3>
+<p class="muted">
+        حالة مفتوحة
+       </p>
+<div class="row" style="margin-top:10px"><button class="btn green" data-resolve>حل النزاع</button><button class="btn light" data-escalate>تصعيد</button></div>
+</div>
+<div class="panel" data-case="CASE-211">
+<span class="badge orange">
+        CASE-211
+       </span>
+<h3>
+        تأخر التسليم
+       </h3>
+<p class="muted">
+        قيد المراجعة
+       </p>
+<div class="row" style="margin-top:10px"><button class="btn green" data-resolve>حل النزاع</button><button class="btn light" data-escalate>تصعيد</button></div>
+</div>
+<div class="panel" data-case="CASE-212">
+<span class="badge red">
+        CASE-212
+       </span>
+<h3>
+        الوصف غير مطابق
+       </h3>
+<div class="row" style="margin-top:10px"><button class="btn green" data-resolve>حل النزاع</button><button class="btn light" data-escalate>تصعيد</button></div>
+</div>
+<div class="panel" data-case="CASE-213">
+<span class="badge orange">
+        CASE-213
+       </span>
+<h3>
+        إلغاء بعد القبول
+       </h3>
+<div class="row" style="margin-top:10px"><button class="btn green" data-resolve>حل النزاع</button><button class="btn light" data-escalate>تصعيد</button></div>
+</div>
+</div>
+<script>
+document.getElementById("disputesGrid").addEventListener("click", function(e){
+  var card = e.target.closest(".panel");
+  if(!card) return;
+  if(e.target.closest("[data-resolve]")){
+    MadaUI.confirm({ title: "حل النزاع " + card.getAttribute("data-case"), body: "سيتم إغلاق الحالة وإشعار الطرفين بالحل." }).then(function(ok){
+      if(!ok) return;
+      card.querySelector(".badge").className = "badge green";
+      card.querySelector("p") && (card.querySelector("p").textContent = "تم الحل");
+      MadaUI.toast("تم حل النزاع بنجاح", "success");
+    });
+  } else if(e.target.closest("[data-escalate]")){
+    MadaUI.confirm({ title: "تصعيد الحالة", body: "سيتم تحويل هذه الحالة لفريق الدعم المتقدم للمراجعة.", danger: true, confirmLabel: "تصعيد" }).then(function(ok){
+      if(!ok) return;
+      MadaUI.toast("تم تصعيد الحالة", "warning");
+    });
+  }
+});
+</script>
+</main>
+</div>
+</div>
+<script src="assets/js/app.js">
+</script>
+<script src="assets/js/mada-i18n.js">
+</script>
+<script src="assets/js/mada-chatbot.js">
+</script>
+<script src="assets/js/data-service.js"></script>
+<script src="assets/js/ui-kit.js"></script>
+<script src="assets/js/mada-experience.js"></script><script src="assets/js/mada-mobile-ui.js"></script></body>
+</html>

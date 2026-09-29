@@ -1,0 +1,843 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+
+/* ==========================================================
+   MADA UI Kit — assets/css/ui-kit.css
+   FINAL visual system: "Deep Navy & Warm Cream".
+   Loads AFTER assets/css/style.css on every page and wins the
+   cascade by re-pointing the CSS custom properties style.css
+   already consumes everywhere (--bg, --ink, --dark, --violet,
+   etc.) plus targeted overrides for selectors that hardcoded a
+   color instead of a variable. No HTML structure below the
+   homepage/nav/chatbot sections was changed by this file —
+   this is a visual re-skin, not a rebuild.
+   ========================================================== */
+
+:root {
+  /* Canvas & neutrals — warm cream, never stark white-on-white */
+  --bg: #F7F3EC;
+  --surface: #FFFFFF;
+  --ink: #001D39;       /* Deep Navy — headings, primary text */
+  --muted: #49769F;     /* Secondary Blue — supporting/secondary text */
+  --line: #E8E1D3;      /* soft warm neutral border, used sparingly */
+  --line-soft: #EFEAE0;
+
+  /* Brand system — one consistent primary blue, no purple */
+  --brand: #0A4174;         /* Primary Blue */
+  --brand-tint: #EAF1F6;    /* soft pale-blue container */
+  --accent: #0A4174;        /* CTAs — unified with brand (no second accent color) */
+  --accent-soft: #E3EDF3;
+  --sky: #7BBDE8;            /* Sky Blue — light interactive highlights, focus rings */
+  --pale: #BDD8E9;           /* Pale Blue — tints, secondary fills */
+  --supporting: #4E8EA2;     /* Supporting Blue */
+  --light-blue: #6EA2B3;
+
+  /* Deep chrome surfaces — hero / sidebar / footer / business CTA */
+  --chrome: #001D39;
+  --chrome-2: #0A4174;
+
+  /* Legacy tokens the whole codebase already consumes, re-pointed once */
+  --dark: var(--brand);     /* .btn.primary, .mark, .rule-number, dot, filter-chip.active */
+  --violet: var(--brand);   /* .btn.violet, .eyebrow, package-card.featured border */
+
+  /* Strictly semantic — never used decoratively per product rules */
+  --green: #1C8A5B;   /* success / accepted ONLY */
+  --red: #DC2626;     /* error / rejection / delete ONLY */
+  --orange: #B5740F;  /* warning */
+
+  --shadow: 0 6px 18px -8px rgba(0,29,57,.10);
+  --shadow-lg: 0 16px 36px -12px rgba(0,29,57,.16);
+  --radius: 16px;
+}
+body[data-theme="dark"] {
+  --bg: #0B1526;
+  --surface: #12203A;
+  --ink: #F3EFE6;
+  --muted: #9FC2DA;
+  --line: #223350;
+  --line-soft: #1B2A44;
+  --brand-tint: #17293F;
+  --accent-soft: #17293F;
+  --chrome: #050C18;
+  --chrome-2: #0A4174;
+}
+
+/* ---- Typography ---- */
+html, body { font-family: 'Tajawal', Arial, Tahoma, sans-serif; }
+body { background: var(--bg); color: var(--ink); line-height: 1.7; }
+h1, h2, h3, h4 { font-weight: 700; line-height: 1.3; letter-spacing: -.01em; color: var(--ink); }
+p { line-height: 1.8; }
+.eyebrow { font-weight: 700; letter-spacing: .02em; }
+
+/* ==========================================================
+   Buttons — one consistent primary blue family
+   ========================================================== */
+.btn { border-radius: 13px; min-height: 46px; font-weight: 700; transition: transform .12s ease, opacity .12s ease, box-shadow .12s ease; box-shadow: none; }
+.btn:active { transform: scale(.98); }
+.btn.primary, .btn.violet { box-shadow: 0 8px 20px -8px rgba(10,65,116,.45); }
+.btn.light { background: var(--surface); border: 1px solid var(--line); color: var(--ink); }
+.btn.green { background: #EAF6EF; border: 1px solid #C8E6D4; color: var(--green); }
+.btn.red { background: #FDEDED; border: 1px solid #F5C6C6; color: var(--red); }
+
+/* ==========================================================
+   Cards & panels — whitespace + a single subtle shadow,
+   borders removed in favor of that one depth cue
+   ========================================================== */
+.card, .panel, .my-offer-card, .package-card, .stat, .mada-modal-card, .mada-toast {
+  background: var(--surface);
+  border-color: transparent;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.card { transition: box-shadow .18s ease, transform .18s ease; }
+.card:hover { box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+.card:active, .btn:active, .filter-chip:active { transform: scale(.98); }
+
+/* ---- Inputs ---- */
+.field input, .field select, .field textarea, .compact-select, .searchbar input, .searchbar select {
+  height: 48px; min-height: 48px; border-radius: 13px;
+  background: var(--surface); border: 1px solid var(--line); color: var(--ink);
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+.field textarea { height: auto; padding-top: 13px; }
+.field input:focus, .field select:focus, .field textarea:focus, .compact-select:focus,
+.searchbar input:focus, .searchbar select:focus {
+  outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* ==========================================================
+   Badges & tags — softened, blue for category info, semantic
+   green/red reserved strictly for success/error per product rules
+   ========================================================== */
+.badge, .tag { font-weight: 700 !important; }
+.violet, .deliverable-v2 > b, .value, .package-list span:before, .package-badge, .completion-note {
+  background: var(--brand-tint) !important; color: var(--brand) !important;
+}
+.value { border-color: var(--line-soft); }
+.value strong { color: var(--brand); }
+.package-card.featured { border-color: var(--brand); box-shadow: 0 16px 40px rgba(10,65,116,.14); }
+body[data-theme="dark"] .value, body[data-theme="dark"] .locked { background: var(--accent-soft); }
+
+/* ==========================================================
+   Chrome surfaces (hero / sidebar / footer / accents) — Deep
+   Navy family instead of the old near-black + purple gradients
+   ========================================================== */
+/* Hero: reuses the same Unsplash-hosted photography already shipped
+   elsewhere in this project (see .offer-img.photo-* in style.css) so
+   no new external source is introduced — just a navy duotone over a
+   landscape frame, evoking Oman's mountains/coast per the brief. */
+.hero {
+  background:
+    linear-gradient(180deg, rgba(0,29,57,.78), rgba(10,65,116,.55) 55%, rgba(0,29,57,.85)),
+    url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1800&q=80');
+  background-size: cover; background-position: center;
+}
+.hero * { color: #fff; }
+.hero .searchbar input, .hero .searchbar select { color: var(--ink); }
+.hero .hero-pill { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.22); color: #fff; }
+.hero h1 span { color: var(--sky); }
+/* Photo cards: retint the darkening overlay from the old near-black to navy */
+.offer-img.photo-restaurant, .offer-img.photo-cafe, .offer-img.photo-event, .offer-img.photo-resort,
+.offer-img.photo-gym, .offer-img.photo-coffee, .offer-img.photo-boat, .offer-img.photo-desert {
+  position: relative;
+}
+.offer-img.photo-restaurant::before, .offer-img.photo-cafe::before, .offer-img.photo-event::before,
+.offer-img.photo-resort::before, .offer-img.photo-gym::before, .offer-img.photo-coffee::before,
+.offer-img.photo-boat::before, .offer-img.photo-desert::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(0,29,57,.55), rgba(0,29,57,.03));
+}
+.offer-img.photo-restaurant > *, .offer-img.photo-cafe > *, .offer-img.photo-event > *,
+.offer-img.photo-resort > *, .offer-img.photo-gym > *, .offer-img.photo-coffee > *,
+.offer-img.photo-boat > *, .offer-img.photo-desert > * { position: relative; z-index: 1; }
+.sidebar { background: var(--chrome); }
+.sidebar .mark { background: #fff; color: var(--chrome); }
+.footer { background: var(--chrome); }
+.auth-side {
+  background:
+    linear-gradient(190deg, rgba(0,29,57,.82), rgba(10,65,116,.6) 60%, rgba(0,29,57,.88)),
+    url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80');
+  background-size: cover; background-position: center;
+}
+.auth-side * { color: #fff; }
+.auth-side p { color: #D8E6EE; }
+.auth-side .mada-trust-item { background: rgba(255,255,255,.08); border-radius: 12px; padding: 10px 12px; }
+.auth-side .mada-trust-item span { color: #D8E6EE; }
+
+/* Auth form-side chrome was still dark-themed from the old palette —
+   these sit on the white/cream card, so they need the light treatment */
+.mada-auth-note { background: var(--brand-tint); border: 1px solid var(--line-soft); color: var(--ink); }
+.mada-auth-note strong { color: var(--brand); }
+.mada-stepbar .mada-step { background: var(--line); }
+.mada-stepbar .mada-step.active { background: var(--brand); }
+.mada-role-hint { border-top: 1px solid var(--line-soft); color: var(--muted); }
+.mada-role-hint a { color: var(--brand); font-weight: 700; }
+.rule-number { background: var(--chrome); }
+.filter-chip.active { background: var(--brand); border-color: var(--brand); color: #fff; }
+.summary-kicker { color: var(--brand); }
+.dot, .status-line.done { background: var(--brand); }
+.status-step.done b, .status-step.current b { background: var(--brand); }
+.my-offer-accent.completed { background: var(--brand); }
+.offer-visual-v2 { background: linear-gradient(160deg, var(--chrome), var(--chrome-2) 140%); }
+.city { background: linear-gradient(160deg, var(--chrome), var(--supporting)); }
+body[data-theme="dark"] .filter-chip.active { background: var(--brand); border-color: var(--brand); }
+.panel[style*="background:#0b1020"], .panel[style*="background: #0b1020"] { background: var(--chrome) !important; }
+
+/* ==========================================================
+   Bottom navigation — plain white tab bar, small blue active
+   indicator. No FAB, no glass, no gradient, per final direction.
+   ========================================================== */
+.mada-bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+  display: none;
+  background: var(--surface);
+  border-top: 1px solid var(--line-soft);
+  box-shadow: 0 -6px 20px -10px rgba(0,29,57,.14);
+  padding: 4px 4px calc(4px + env(safe-area-inset-bottom));
+}
+@media (max-width: 767px) {
+  .mada-bottom-nav { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; }
+  .mada-bottom-nav a {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+    min-height: 56px; color: var(--muted); font-size: 10px; font-weight: 700;
+  }
+  .mada-bottom-nav a span { font-size: 19px; line-height: 1; }
+  .mada-bottom-nav a.active { color: var(--brand); font-weight: 700; }
+  .mada-bottom-nav a.active::after {
+    content: ""; position: absolute; top: 4px; width: 18px; height: 3px; border-radius: 999px; background: var(--brand);
+  }
+  body.has-mada-bottom-nav { padding-bottom: 80px; }
+}
+@media (min-width: 768px) { .mada-bottom-nav { display: none !important; } }
+
+/* Legacy nav/assistant markup, kept hidden as a safety net */
+.mobile { display: none !important; }
+.assistbtn, .assistant { display: none !important; }
+
+/* ==========================================================
+   Floating chatbot launcher ("مساعد مَدى ✦") — kept small,
+   plain, fixed, and clear of the bottom nav and primary CTAs.
+   Programming in assets/js/mada-chatbot.js is untouched; this
+   is purely the visual re-skin, forced with !important because
+   style.css carries many legacy per-breakpoint !important rules
+   for this component from earlier iterations of the prototype.
+   ========================================================== */
+.mada-chat-launcher {
+  width: 50px !important; height: 50px !important; min-width: 50px !important; min-height: 50px !important;
+  border-radius: 50% !important;
+  bottom: 20px !important; right: 20px !important; left: auto !important;
+  padding: 0 !important;
+  background: var(--brand) !important;
+  box-shadow: 0 8px 22px -6px rgba(0,29,57,.45) !important;
+  display: grid !important; place-items: center !important;
+  transition: bottom .18s ease, opacity .18s ease, transform .18s ease !important;
+}
+.mada-chat-launcher .mada-chat-dot { width: 22px !important; height: 22px !important; font-size: 13px !important; background: transparent !important; box-shadow: none !important; }
+.mada-chat-launcher > span:last-child { display: none !important; }
+html[dir="ltr"] .mada-chat-launcher, body[data-lang="en"] .mada-chat-launcher { right: auto !important; left: 20px !important; }
+@media (max-width: 767px) {
+  .mada-chat-launcher { width: 44px !important; height: 44px !important; min-width: 44px !important; min-height: 44px !important; bottom: 16px !important; right: 16px !important; }
+  body.has-mada-bottom-nav .mada-chat-launcher { bottom: calc(88px + env(safe-area-inset-bottom)) !important; right: 16px !important; }
+  html[dir="ltr"] .mada-chat-launcher, body[data-lang="en"] .mada-chat-launcher,
+  html[dir="ltr"] body.has-mada-bottom-nav .mada-chat-launcher, body[data-lang="en"].has-mada-bottom-nav .mada-chat-launcher { right: auto !important; left: 16px !important; }
+  .mada-chat-panel { bottom: calc(88px + env(safe-area-inset-bottom)) !important; left: 8px !important; right: 8px !important; width: auto !important; }
+}
+.mada-chat-launcher.mada-chat-hidden { opacity: 0; transform: scale(.6); pointer-events: none; }
+
+/* Chat panel: re-themed from the old near-black + violet chat UI to the new light navy/cream language */
+.mada-chat-panel {
+  background: var(--surface) !important; color: var(--ink) !important;
+  border: 1px solid var(--line-soft) !important; box-shadow: var(--shadow-lg) !important;
+}
+.mada-chat-head { border-bottom: 1px solid var(--line-soft) !important; }
+.mada-chat-avatar { background: var(--brand-tint) !important; color: var(--brand) !important; }
+.mada-chat-brand strong { color: var(--ink) !important; }
+.mada-chat-brand span { color: var(--muted) !important; }
+.mada-online { background: var(--green) !important; }
+.mada-chat-icon-btn { background: var(--brand-tint) !important; border-color: var(--line-soft) !important; color: var(--brand) !important; }
+.mada-chat-suggest { border-bottom: 1px solid var(--line-soft) !important; }
+.mada-chat-chip { background: var(--bg) !important; border-color: var(--line) !important; color: var(--ink) !important; }
+.mada-chat-chip:hover { border-color: var(--brand) !important; color: var(--brand) !important; }
+.mada-bubble { line-height: 1.75 !important; }
+.mada-msg.bot .mada-bubble { background: var(--bg) !important; border: 1px solid var(--line-soft) !important; color: var(--ink) !important; }
+.mada-msg.user .mada-bubble { background: var(--brand) !important; color: #fff !important; }
+.mada-chat-links a { background: var(--brand-tint) !important; border-color: var(--line-soft) !important; color: var(--ink) !important; }
+.mada-chat-links a:hover { border-color: var(--brand) !important; }
+.mada-chat-input { background: var(--surface) !important; border-top: 1px solid var(--line-soft) !important; }
+.mada-chat-input input { background: var(--bg) !important; border: 1px solid var(--line) !important; color: var(--ink) !important; }
+.mada-chat-input input:focus { border-color: var(--brand) !important; }
+.mada-chat-send { background: var(--brand) !important; color: #fff !important; }
+.mada-chat-mini-note { background: var(--surface) !important; color: var(--muted) !important; }
+.mada-context-tip { background: var(--brand-tint) !important; border-color: var(--line-soft) !important; color: var(--muted) !important; }
+
+/* ==========================================================
+   Offline / online awareness banner
+   ========================================================== */
+.mada-offline-banner {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
+  background: var(--chrome); color: #fff; text-align: center;
+  font-size: 12px; font-weight: 700; padding: 8px 12px;
+  padding-top: calc(8px + env(safe-area-inset-top));
+  transform: translateY(-100%); transition: transform .25s ease;
+}
+.mada-offline-banner.show { transform: translateY(0); }
+
+/* ==========================================================
+   Confirmation modal → native-like bottom sheet on mobile
+   ========================================================== */
+.mada-modal-overlay { position: fixed; inset: 0; background: rgba(0,29,57,.45); backdrop-filter: blur(2px); z-index: 9998; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity .18s ease; }
+.mada-modal-overlay.show { opacity: 1; }
+.mada-modal-card { width: min(420px, 100%); padding: 22px; transform: translateY(10px) scale(.97); transition: transform .18s ease; position: relative; }
+.mada-modal-wide { width: min(560px, 100%); }
+.mada-modal-overlay.show .mada-modal-card { transform: translateY(0) scale(1); }
+.mada-modal-title { margin: 0 0 8px; font-size: 18px; }
+.mada-modal-body { margin: 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+.mada-modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+.mada-modal-card.danger .mada-modal-title { color: var(--red); }
+.mada-modal-x { position: absolute; top: 14px; left: 14px; width: 32px; height: 32px; border: 0; border-radius: 10px; background: var(--brand-tint); color: var(--brand); font-size: 16px; line-height: 1; }
+body.mada-modal-open { overflow: hidden; }
+@media (max-width: 640px) {
+  .mada-modal-overlay { align-items: flex-end; padding: 0; }
+  .mada-modal-card { width: 100%; max-width: 100%; border-radius: 20px 20px 0 0; padding: 20px 20px calc(20px + env(safe-area-inset-bottom)); transform: translateY(100%); }
+  .mada-modal-overlay.show .mada-modal-card { transform: translateY(0); }
+  .mada-modal-card::before { content: ""; display: block; width: 40px; height: 4px; border-radius: 999px; background: var(--line); margin: 0 auto 14px; }
+}
+
+/* ==========================================================
+   Toasts
+   ========================================================== */
+.mada-toast-host { position: fixed; top: max(16px, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 8px; width: min(380px, calc(100% - 24px)); pointer-events: none; }
+.mada-toast { pointer-events: auto; display: flex; align-items: center; gap: 10px; padding: 12px 14px; font-size: 12.5px; font-weight: 700; opacity: 0; transform: translateY(-14px) scale(.98); transition: opacity .2s ease, transform .2s ease; cursor: pointer; }
+.mada-toast.show { opacity: 1; transform: translateY(0) scale(1); }
+.mada-toast-ic { width: 22px; height: 22px; flex: 0 0 22px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 900; color: #fff; }
+.mada-toast-success .mada-toast-ic { background: var(--green); }
+.mada-toast-error .mada-toast-ic { background: var(--red); }
+.mada-toast-warning .mada-toast-ic { background: var(--orange); }
+.mada-toast-info .mada-toast-ic { background: var(--brand); }
+
+/* ==========================================================
+   Skeletons, empty states, stars, upload preview, ripple
+   ========================================================== */
+.mada-skel-card { display: grid; gap: 8px; padding: 4px 0; }
+.mada-skel { border-radius: 12px; background: linear-gradient(90deg, rgba(0,29,57,.06) 25%, rgba(0,29,57,.11) 37%, rgba(0,29,57,.06) 63%); background-size: 400% 100%; animation: mada-shimmer 1.4s ease infinite; }
+.mada-skel-img { height: 180px; border-radius: 16px; }
+.mada-skel-line { height: 14px; }
+.mada-skel-line.w70 { width: 70%; }
+.mada-skel-line.w40 { width: 40%; }
+@keyframes mada-shimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+@media (prefers-reduced-motion: reduce) { .mada-skel { animation: none; } }
+body[data-theme="dark"] .mada-skel { background: linear-gradient(90deg, rgba(255,255,255,.05) 25%, rgba(255,255,255,.12) 37%, rgba(255,255,255,.05) 63%); background-size: 400% 100%; }
+
+.mada-empty { text-align: center; padding: 48px 16px; }
+.mada-empty .mada-empty-icon { font-size: 34px; opacity: .5; margin-bottom: 10px; }
+.mada-empty h3 { margin: 0 0 6px; }
+.mada-empty p { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+
+.mada-stars { display: inline-flex; gap: 4px; }
+.mada-star { color: var(--line); font-size: 20px; cursor: default; }
+.mada-star.filled { color: #C9962B; }
+.mada-stars[role="radiogroup"] .mada-star { cursor: pointer; }
+
+.mada-upload { border: 1.5px dashed var(--line); border-radius: 16px; min-height: 140px; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--muted); font-size: 12px; background-size: cover; background-position: center; cursor: pointer; position: relative; overflow: hidden; }
+.mada-upload.has-image { color: transparent; border-style: solid; }
+.mada-upload input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+body[data-theme="dark"] .mada-upload { border-color: var(--line); color: var(--muted); }
+
+.mada-ripple-host { overflow: hidden; }
+.mada-ripple { position: absolute; border-radius: 50%; background: rgba(10,65,116,.16); transform: scale(0); animation: mada-ripple-anim .6s ease-out; pointer-events: none; z-index: 5; }
+body[data-theme="dark"] .mada-ripple { background: rgba(255,255,255,.12); }
+@keyframes mada-ripple-anim { to { transform: scale(2.6); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .mada-ripple { animation: none; display: none; } .card { transition: none; } }
+
+.mada-filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0 22px; }
+
+/* ==========================================================
+   Creator onboarding step-2 (creator-welcome.html) — was still
+   hardcoded to the old violet palette, bypassing all variables
+   ========================================================== */
+.mada-clean-page { background: var(--bg); color: var(--ink); }
+.mada-setup-label { color: var(--muted); }
+.mada-setup-card { background: var(--surface); border-color: var(--line-soft); box-shadow: var(--shadow); }
+.mada-setup-status { color: var(--brand); background: var(--brand-tint); border-color: transparent; }
+.mada-setup-card h1 { color: var(--ink); }
+.mada-setup-lead, .mada-setup-section p { color: var(--muted); }
+.mada-setup-progress span { background: var(--line); }
+.mada-setup-progress span.done { background: var(--brand); }
+.mada-setup-section h2 { color: var(--ink); }
+.mada-interest-grid.clean button { border-color: var(--line); background: var(--surface); color: var(--ink); }
+.mada-interest-grid.clean button:hover { border-color: var(--brand); }
+.mada-interest-grid.clean button.active { background: var(--brand-tint); border-color: var(--brand); color: var(--brand); }
+.mada-setup-note { background: var(--brand-tint); border-color: transparent; color: var(--ink); }
+.mada-setup-note strong { color: var(--brand); }
+.mada-mood-filter button, .mada-save-mini { border-color: var(--line); background: var(--surface); color: var(--ink); }
+.mada-mood-filter button.active { background: var(--brand); border-color: var(--brand); color: #fff; }
+
+/* ==========================================================
+   Create Experience — visual 6-step wizard grouping
+   (single-page form underneath; purely presentational dividers)
+   ========================================================== */
+.mada-wizard-step { display: flex; align-items: center; gap: 10px; margin: 32px 0 16px; }
+.mada-wizard-step:first-child { margin-top: 0; }
+.mada-wizard-num { width: 26px; height: 26px; border-radius: 50%; background: var(--brand); color: #fff; font-size: 12px; font-weight: 700; display: grid; place-items: center; flex: 0 0 26px; }
+.mada-wizard-step h3 { margin: 0; font-size: 15px; color: var(--ink); }
+
+/* ==========================================================
+   Smart drafting assistant (create-offer.html)
+   ========================================================== */
+.mada-smart-draft-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line);
+  background: var(--brand-tint); color: var(--brand);
+  font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap;
+  transition: transform .12s ease, opacity .12s ease;
+}
+.mada-smart-draft-btn:hover { opacity: .85; }
+.mada-smart-draft-btn:active { transform: scale(.96); }
+.mada-smart-draft-btn.loading span:first-child { display: inline-block; animation: mada-draft-spin .9s linear infinite; }
+.mada-smart-draft-btn[disabled] { opacity: .6; cursor: default; }
+@keyframes mada-draft-spin { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.25); } 100% { transform: rotate(360deg) scale(1); } }
+
+.mada-smart-draft-badge {
+  margin-top: 8px; font-size: 11px; font-weight: 700; color: var(--brand);
+  background: var(--brand-tint); border-radius: 10px; padding: 6px 10px;
+  opacity: 0; transform: translateY(-4px); transition: opacity .25s ease, transform .25s ease;
+}
+.mada-smart-draft-badge.show { opacity: 1; transform: translateY(0); }
+
+.mada-field-glow { animation: mada-field-glow-pulse 1.8s ease; }
+@keyframes mada-field-glow-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(10,65,116,0); border-color: var(--line); }
+  25% { box-shadow: 0 0 0 4px var(--brand-tint); border-color: var(--brand); }
+  100% { box-shadow: 0 0 0 0 rgba(10,65,116,0); border-color: var(--line); }
+}
+
+.mada-clear-card.done-step { border-color: transparent; background: var(--brand-tint); }
+.mada-clear-card.done-step .num { color: var(--brand); }
+
+/* ==========================================================
+   Profile header — avatar + identity, no card-inside-card
+   ========================================================== */
+.mada-profile-head { display: flex; align-items: center; gap: 18px; margin-bottom: 24px; }
+.mada-avatar { width: 76px; height: 76px; border-radius: 50%; background: var(--brand-tint); color: var(--brand); display: grid; place-items: center; font-size: 28px; font-weight: 700; flex: 0 0 76px; }
+.mada-profile-head h1 { display: flex; align-items: center; gap: 8px; font-size: 22px; margin: 0; }
+.mada-verified-tick { width: 20px; height: 20px; border-radius: 50%; background: var(--brand); color: #fff; font-size: 11px; display: inline-flex; align-items: center; justify-content: center; }
+.mada-interest-tags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.mada-profile-stats { border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); padding: 20px 0; }
+@media (max-width: 640px) { .mada-profile-head { flex-direction: column; text-align: center; } .mada-interest-tags { justify-content: center; } }
+
+/* ==========================================================
+   Notifications — clean list, no boxed panel per row
+   ========================================================== */
+.mada-notif-list { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.mada-notif-row { display: flex; align-items: flex-start; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--line-soft); cursor: pointer; }
+.mada-notif-row:last-child { border-bottom: 0; }
+.mada-notif-row:hover { background: var(--bg); }
+.mada-notif-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex: 0 0 8px; background: transparent; }
+.mada-notif-row.unread .mada-notif-dot { background: var(--brand); }
+.mada-notif-text { flex: 1; }
+.mada-notif-text h3 { margin: 0 0 4px; font-size: 14px; }
+.mada-notif-text p { margin: 0; font-size: 12.5px; }
+.mada-notif-row.unread .mada-notif-text h3 { font-weight: 700; }
+
+/* ==========================================================
+   Create Experience — visual step dividers over the existing
+   single-page form (no JS/state changes; purely presentational)
+   ========================================================== */
+.mada-wizard-step { display: flex; align-items: center; gap: 10px; margin: 30px 0 16px; }
+.mada-wizard-step:first-child { margin-top: 4px; }
+.mada-wizard-step .mada-wizard-num { width: 26px; height: 26px; border-radius: 50%; background: var(--brand); color: #fff; font-size: 12px; font-weight: 700; display: grid; place-items: center; flex: 0 0 26px; }
+.mada-wizard-step h3 { margin: 0; font-size: 14px; color: var(--brand); }
+.mada-wizard-step::after { content: ""; flex: 1; height: 1px; background: var(--line-soft); }
+
+/* Fix: this welcome card had a hardcoded dark panel background with
+   no matching text-color override, making text unreadable */
+.mada-welcome-card { background: var(--chrome); border-color: transparent; }
+.mada-welcome-card * { color: #fff; }
+.mada-welcome-card p { color: #D8E6EE; }
+.mada-journey > div { border-color: rgba(255,255,255,.16); }
+.mada-journey .done { background: rgba(255,255,255,.06); }
+
+/* Creator setup/interest-picker page — was still on the old purple palette */
+.mada-setup-status { color: var(--brand); background: var(--brand-tint); border-color: transparent; }
+.mada-setup-progress span.done { background: var(--brand); }
+.mada-interest-grid button.active, .mada-mood-filter button.active { background: var(--brand); }
+.mada-interest-grid.clean button:hover { border-color: var(--brand); }
+.mada-interest-grid.clean button.active { background: var(--brand-tint); border-color: var(--brand); color: var(--brand); }
+
+/* This exact selector carries !important in style.css from an earlier
+   decluttering pass — must match specificity + !important to win */
+.filter-chip.active { background: var(--brand) !important; border-color: var(--brand) !important; color: #fff !important; }
+/* CRITICAL: style.css has a separate !important rule for .btn.primary/.btn.violet
+   that was silently overriding the --dark/--violet variable remap above on
+   every single button across the whole site. Must match !important to win. */
+.btn.primary, .btn.violet { background: var(--brand) !important; color: #fff !important; border: 1px solid var(--brand) !important; }
+.btn.primary:hover, .btn.violet:hover { background: var(--brand) !important; border-color: var(--brand) !important; opacity: .92; }
+
+/* ==========================================================
+   CRITICAL FIX: style.css contains a second, later "polish pass"
+   block using !important on hero, buttons, cards, and a duplicate
+   mobile .mada-bottom-nav (with glassmorphism + purple active
+   state) inside its own @media(max-width:720px) block — separate
+   from the .mada-bottom-nav rules earlier in this file. Because it
+   uses !important, it was silently winning over parts of every
+   previous round's redesign. Reclaiming every one of those
+   properties here, matching !important where style.css used it.
+   ========================================================== */
+.hero, .mada-compact-hero.hero {
+  background:
+    linear-gradient(180deg, rgba(0,29,57,.78), rgba(10,65,116,.55) 55%, rgba(0,29,57,.85)),
+    url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1800&q=80') !important;
+  background-size: cover !important; background-position: center !important;
+}
+.hero-pill { background: rgba(255,255,255,.12) !important; border: 1px solid rgba(255,255,255,.22) !important; color: #fff !important; }
+.hero h1 span { color: var(--sky) !important; }
+.hero p { color: #D8E6EE !important; }
+.card, .panel { border: 1px solid transparent !important; }
+.card:hover { box-shadow: var(--shadow-lg) !important; }
+.section-head p { color: var(--muted) !important; }
+.mada-chat-launcher { box-shadow: 0 8px 22px -6px rgba(0,29,57,.45) !important; }
+
+/* The duplicate mobile bottom-nav block in style.css's own
+   @media(max-width:720px) — override with the same breakpoint so
+   it's active for exactly the same viewports it was written for. */
+@media (max-width: 720px) {
+  .mada-bottom-nav {
+    background: var(--surface) !important;
+    border: 0 !important; border-top: 1px solid var(--line-soft) !important;
+    box-shadow: 0 -6px 20px -10px rgba(0,29,57,.14) !important;
+    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+    border-radius: 0 !important;
+  }
+  .mada-bottom-nav a.active { background: transparent !important; color: var(--brand) !important; }
+}
+
+/* ==========================================================
+   Homepage: category icon strip, editorial timeline,
+   image-forward opportunity cards, gallery grid
+   ========================================================== */
+.mada-cat-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+.mada-cat-item {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 14px 6px; border-radius: 16px; background: transparent; border: 0;
+  color: var(--ink); font-size: 12px; font-weight: 700; cursor: pointer;
+}
+.mada-cat-item .mada-cat-ic {
+  width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--brand-tint); color: var(--brand); transition: background .15s ease, color .15s ease;
+}
+.mada-cat-item .mada-cat-ic svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+.mada-cat-item.active .mada-cat-ic { background: var(--brand); color: #fff; }
+.mada-cat-item.active { color: var(--brand); }
+@media (max-width: 700px) { .mada-cat-row { grid-template-columns: repeat(3, 1fr); row-gap: 16px; } }
+
+.mada-timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.mada-timeline-step { padding-inline-start: 18px; border-inline-start: 2px solid var(--line); }
+.mada-timeline-step b { display: block; font-size: 12px; color: var(--brand); font-weight: 700; margin-bottom: 6px; }
+.mada-timeline-step h4 { margin: 0 0 6px; font-size: 16px; }
+.mada-timeline-step p { margin: 0; color: var(--muted); font-size: 12.5px; }
+@media (max-width: 760px) { .mada-timeline { grid-template-columns: 1fr; gap: 22px; } }
+
+.mada-opp-card { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); background: var(--surface); }
+.mada-opp-card .mada-opp-img { position: relative; height: 260px; }
+.mada-opp-card .mada-opp-img img,
+.mada-opp-card .mada-opp-img .offer-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mada-opp-save {
+  position: absolute; top: 12px; inset-inline-end: 12px; width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,.92); display: grid; place-items: center; border: 0; font-size: 15px; color: var(--brand);
+  box-shadow: 0 4px 10px rgba(0,29,57,.18);
+}
+.mada-opp-cat { position: absolute; top: 12px; inset-inline-start: 12px; background: rgba(255,255,255,.92); color: var(--brand); font-size: 10.5px; font-weight: 700; padding: 5px 10px; border-radius: 999px; }
+.mada-opp-body { padding: 16px; }
+.mada-opp-body h3 { margin: 2px 0 6px; font-size: 16px; }
+.mada-opp-body .mada-opp-biz { color: var(--muted); font-size: 12px; font-weight: 700; margin: 0; }
+.mada-opp-meta { display: flex; gap: 14px; margin: 10px 0 14px; color: var(--muted); font-size: 11.5px; }
+.mada-opp-meta span { display: inline-flex; align-items: center; gap: 4px; }
+
+.mada-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 760px) { .mada-gallery { grid-template-columns: repeat(2, 1fr); } }
+
+/* ---- Responsive polish carried from earlier rounds ---- */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .cols4 { grid-template-columns: repeat(2, 1fr); }
+  .cols3 { grid-template-columns: repeat(2, 1fr); }
+  .mada-modal-card { width: min(480px, calc(100% - 40px)); }
+}
+@media (min-width: 1025px) { .container { width: min(1180px, calc(100% - 40px)); } }
+@media (min-width: 1600px) { .container { width: min(1320px, calc(100% - 64px)); } }
+
+/* ---- Safe area & touch ergonomics ---- */
+html { -webkit-text-size-adjust: 100%; }
+body { -webkit-overflow-scrolling: touch; }
+.top { padding-top: env(safe-area-inset-top); }
+.mobile, .mada-bottom-nav { padding-bottom: env(safe-area-inset-bottom); }
+.assistbtn { margin-bottom: env(safe-area-inset-bottom); }
+.btn, .filter-chip, .mada-star, .status-step, .mobile a, .mada-bottom-nav a { min-height: 44px; min-width: 44px; }
+.tag, .badge { min-height: 26px; display: inline-flex; align-items: center; }
+@media (max-width: 760px) {
+  .btn { min-height: 46px; }
+  input, select, textarea { min-height: 46px; font-size: 16px; } /* 16px avoids iOS zoom-on-focus */
+}
+
+/* ==========================================================
+   FINAL REAL-SITE ART DIRECTION — approved MADA reference
+   Pure visual layer. No JS, routes, forms or product logic changed.
+   ========================================================== */
+:root{
+  --mada-navy:#001D39;--mada-blue:#0A4174;--mada-mid:#49769F;
+  --mada-pale:#EEF5F8;--mada-cream:#F8F4EC;--mada-line:#E3EAF0;
+}
+body{background:#FCFBF8!important;color:var(--mada-navy)!important}
+.top{height:auto!important;background:rgba(255,255,255,.97)!important;border-bottom:1px solid rgba(0,29,57,.07)!important;box-shadow:none!important}
+.topin{min-height:76px!important}
+.brand .mark{background:var(--mada-navy)!important;color:#fff!important;border-radius:12px!important}
+.brand strong{color:var(--mada-navy)!important;font-weight:800!important}
+.nav a{color:var(--mada-navy)!important;font-weight:700!important}
+.nav a[href="index.html#discover"]{border-bottom:2px solid var(--mada-blue)!important;border-radius:0!important}
+.top .btn.primary{background:#fff!important;color:var(--mada-blue)!important;border:1px solid #D5E2EC!important}
+
+/* Hero uses a CLEAN local photo, never a mockup screenshot. */
+.hero,.mada-compact-hero.hero{
+  min-height:520px!important;padding:72px 0 58px!important;display:flex!important;align-items:center!important;
+  background:
+    linear-gradient(90deg,rgba(0,29,57,.04) 0%,rgba(0,29,57,.04) 42%,rgba(0,29,57,.68) 100%),
+    url('../images/hero-oman.jpg') center center/cover no-repeat!important;
+}
+.hero-content{width:100%!important;max-width:1180px!important;text-align:right!important;position:relative!important}
+.hero h1{max-width:520px!important;margin:0 0 14px 0!important;font-size:clamp(44px,5vw,66px)!important;line-height:1.13!important;color:#fff!important;text-shadow:0 3px 22px rgba(0,29,57,.22)!important}
+.hero h1 span{display:block!important;color:#fff!important}
+.hero p{max-width:570px!important;margin:0!important;color:rgba(255,255,255,.96)!important;font-size:16px!important;line-height:1.9!important;text-shadow:0 2px 12px rgba(0,29,57,.24)!important}
+.searchbar{max-width:760px!important;margin:30px 0 0!important;padding:8px!important;border-radius:16px!important;background:rgba(255,255,255,.97)!important;box-shadow:0 18px 42px rgba(0,29,57,.20)!important;grid-template-columns:minmax(0,1.35fr) minmax(160px,.7fr) 86px!important}
+.searchbar input,.searchbar select{background:#F8FAFC!important;border:0!important;color:var(--mada-navy)!important}
+.searchbar .btn{min-width:86px!important;background:var(--mada-blue)!important;border-color:var(--mada-blue)!important}
+
+/* airy categories */
+.mada-cat-row{gap:26px!important;max-width:980px!important;margin:auto!important}
+.mada-cat-item{padding:8px 4px!important;color:var(--mada-navy)!important}
+.mada-cat-item .mada-cat-ic{width:66px!important;height:66px!important;background:#F3F6F8!important;color:var(--mada-blue)!important}
+.mada-cat-item .mada-cat-ic svg{width:29px!important;height:29px!important;stroke-width:1.45!important}
+
+.section{padding:58px 0!important}
+.section-head h2{color:var(--mada-navy)!important;font-size:32px!important}
+.eyebrow{color:var(--mada-mid)!important}
+
+/* image-forward opportunities */
+.mada-opp-card{border:1px solid var(--mada-line)!important;border-radius:13px!important;box-shadow:0 8px 28px rgba(0,29,57,.055)!important;overflow:hidden!important}
+.mada-opp-card .mada-opp-img{height:245px!important}
+.mada-opp-card:nth-child(1) .offer-img{background:linear-gradient(0deg,rgba(0,29,57,.08),transparent),url('../images/experience-dining.jpg') center/cover no-repeat!important}
+.mada-opp-card:nth-child(2) .offer-img{background:linear-gradient(0deg,rgba(0,29,57,.08),transparent),url('../images/experience-adventure.jpg') center/cover no-repeat!important}
+.mada-opp-card:nth-child(3) .offer-img{background:linear-gradient(0deg,rgba(0,29,57,.08),transparent),url('../images/business-cafe.jpg') center/cover no-repeat!important}
+.mada-opp-body{padding:15px 16px 16px!important}
+.mada-opp-body h3{font-size:17px!important;color:var(--mada-navy)!important}
+.mada-opp-body .btn.full{width:auto!important;min-height:34px!important;padding:0!important;background:transparent!important;border:0!important;color:var(--mada-blue)!important;justify-content:flex-start!important}
+.mada-opp-meta{color:#5E7487!important}
+
+/* editorial How MADA Works */
+.section.white{background:#F4F8FA!important}
+.mada-how-layout{display:grid!important;grid-template-columns:.9fr 1.45fr!important;gap:48px!important;align-items:center!important}
+.mada-how-image{min-height:300px!important;border-radius:0 160px 160px 0!important;background:url('../images/hero-oman.jpg') 18% center/cover no-repeat!important}
+.mada-timeline{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:18px!important}
+.mada-timeline-step{border:0!important;padding:0!important;text-align:center!important}
+.mada-timeline-step b{width:48px;height:48px;margin:0 auto 12px!important;border-radius:50%;display:grid!important;place-items:center!important;background:#fff!important;border:1px solid #DDE8EF!important;color:var(--mada-blue)!important;font-size:13px!important}
+.mada-timeline-step h4{color:var(--mada-navy)!important}
+
+/* business CTA = photography, not a dark dashboard panel */
+.mada-business-section{background:#FCFBF8!important}
+.mada-business-cta{display:grid!important;grid-template-columns:1fr 1.35fr!important;min-height:260px!important;border:1px solid #E9E2D7!important;border-radius:16px!important;overflow:hidden!important;background:var(--mada-cream)!important}
+.mada-business-image{background:url('../images/business-cafe.jpg') center/cover no-repeat!important;min-height:260px!important}
+.mada-business-copy{padding:42px 46px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:flex-start!important}
+.mada-business-copy h2{font-size:32px!important;margin:7px 0 8px!important;color:var(--mada-navy)!important}
+.mada-business-copy p{color:#536B7D!important;margin:0 0 20px!important}
+.mada-business-copy .btn{background:var(--mada-blue)!important;border-color:var(--mada-blue)!important}
+
+.footer{background:#fff!important;border-top:1px solid #E7EDF1!important;color:var(--mada-navy)!important}
+.mada-chat-launcher{width:48px!important;height:48px!important;background:var(--mada-blue)!important;box-shadow:0 8px 22px rgba(0,29,57,.24)!important}
+
+@media(max-width:980px){
+  .hero,.mada-compact-hero.hero{min-height:480px!important}
+  .mada-how-layout{grid-template-columns:1fr!important;gap:30px!important}
+  .mada-how-image{min-height:250px!important;border-radius:18px!important}
+  .mada-timeline{grid-template-columns:repeat(2,1fr)!important}
+}
+@media(max-width:720px){
+  .topin{min-height:62px!important}
+  .hero,.mada-compact-hero.hero{
+    min-height:520px!important;padding:230px 0 28px!important;align-items:flex-end!important;
+    background:linear-gradient(180deg,rgba(0,29,57,.02) 18%,rgba(0,29,57,.20) 48%,rgba(0,29,57,.90) 82%,rgba(0,29,57,.96) 100%),url('../images/hero-oman.jpg') 26% center/cover no-repeat!important;
+  }
+  .hero h1{font-size:38px!important;max-width:100%!important;margin-bottom:9px!important}
+  .hero p{font-size:13px!important;line-height:1.65!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .searchbar{grid-template-columns:1fr 52px!important;margin-top:16px!important;padding:6px!important;gap:6px!important}
+  .searchbar select{display:none!important}
+  .searchbar .btn{min-width:52px!important;width:52px!important;font-size:0!important;padding:0!important}
+  .searchbar .btn::before{content:'⌕';font-size:22px!important}
+  .mada-cat-row{display:flex!important;overflow-x:auto!important;justify-content:flex-start!important;gap:18px!important;padding-bottom:8px!important;scrollbar-width:none}
+  .mada-cat-item{min-width:72px!important}
+  .mada-cat-item .mada-cat-ic{width:52px!important;height:52px!important}
+  .mada-opp-card .mada-opp-img{height:225px!important}
+  .mada-how-layout{display:block!important}
+  .mada-how-image{min-height:210px!important;margin-bottom:26px!important}
+  .mada-timeline{grid-template-columns:1fr 1fr!important;gap:24px 14px!important}
+  .mada-business-cta{grid-template-columns:1fr!important}
+  .mada-business-image{min-height:210px!important}
+  .mada-business-copy{padding:26px 22px!important}
+  .mada-business-copy h2{font-size:26px!important}
+}
+
+/* ===== MADA FINAL POLISH 2026 ===== */
+:root{--mada-navy:#001D39;--mada-blue:#0A4174;--mada-blue2:#49769F;--mada-cream:#F7F3EC;--mada-white:#fff;--mada-text:#10283f;--mada-muted:#66788a}
+html[lang="ar"] body{font-family:"Tajawal",system-ui,sans-serif}html[lang="en"] body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+html[lang="en"]{direction:ltr}html[lang="ar"]{direction:rtl}
+/* Never allow dark text to disappear on dark surfaces */
+:is(.dark,.navy,.step-card,.onboarding-step,.business-step,.admin-sidebar,[class*="dark"],[class*="navy"]){color:#fff}
+:is(.dark,.navy,.step-card,.onboarding-step,.business-step,[class*="dark"],[class*="navy"]) :is(h1,h2,h3,h4,strong,b){color:#fff!important}
+:is(.dark,.navy,.step-card,.onboarding-step,.business-step,[class*="dark"],[class*="navy"]) :is(p,small,span:not(.badge)){color:rgba(255,255,255,.82)}
+/* business onboarding cards: blue, readable, less black */
+.business-onboarding .card,.onboarding-steps .card,.setup-steps .card{background:var(--mada-navy);color:#fff;border:1px solid rgba(73,118,159,.38);box-shadow:none}
+.business-onboarding .card h3,.onboarding-steps .card h3,.setup-steps .card h3{color:#fff!important}
+.business-onboarding .card p,.onboarding-steps .card p,.setup-steps .card p{color:rgba(255,255,255,.78)!important}
+/* global refinement */
+.container,.wrap,.topin{max-width:1240px;margin-inline:auto}
+button,.btn,input,select,textarea{border-radius:12px}button,.btn{min-height:44px}
+.card,.panel{box-shadow:0 8px 28px rgba(0,29,57,.055)}
+:focus-visible{outline:3px solid rgba(10,65,116,.28);outline-offset:2px}
+img{max-width:100%}
+/* language switcher: one compact control */
+.mada-site-lang{border:1px solid #dbe5ec;background:#fff;border-radius:999px;padding:3px;display:flex;gap:2px;align-items:center}
+.mada-site-lang button{border:0;background:transparent;min-height:32px;padding:5px 10px;border-radius:999px;color:var(--mada-muted);font-weight:700}
+.mada-site-lang button.active{background:var(--mada-blue);color:#fff}
+/* chatbot: compact, premium and safely above mobile nav */
+.mada-chat-launcher{max-width:52px!important;width:52px!important;height:52px!important;border-radius:50%!important;padding:0!important;display:grid!important;place-items:center!important}
+.mada-chat-launcher>span:last-child{display:none!important}.mada-chat-dot{font-size:20px}
+.mada-chat-panel{width:min(390px,calc(100vw - 28px))!important;max-height:min(570px,75vh)!important;border-radius:20px!important;overflow:hidden!important}
+.mada-chat-lang-pills{display:flex;gap:4px;background:#edf3f7;border-radius:999px;padding:3px;margin-inline-start:auto}
+.mada-chat-lang-pills button{border:0;background:transparent;color:#52687b;border-radius:999px;padding:5px 9px;min-height:30px;font-size:12px;font-weight:800}
+.mada-chat-lang-pills button.active{background:#fff;color:var(--mada-blue);box-shadow:0 2px 8px rgba(0,29,57,.08)}
+.mada-chat-chip{white-space:normal!important;text-align:start!important}
+@media(max-width:720px){
+ body{padding-bottom:84px}
+ .container,.wrap{width:auto!important;margin-inline:16px!important}
+ .mada-chat-launcher{position:fixed!important;bottom:88px!important;inset-inline-end:16px!important}
+ .mada-chat-panel{position:fixed!important;inset-inline:10px!important;bottom:82px!important;width:auto!important;max-height:72dvh!important;border-radius:22px 22px 16px 16px!important}
+ h1{line-height:1.15}.hero h1{font-size:clamp(34px,10vw,48px)!important}
+ .grid,.cards,.stats-grid{grid-template-columns:1fr!important}
+ table{font-size:13px}
+ .topin{padding-inline:14px!important}
+}
+@media(min-width:721px) and (max-width:1024px){.container,.wrap,.topin{max-width:calc(100% - 40px)}}
+
+
+/* ==========================================================
+   THE O — final mobile brand + floating navigation pass
+   ========================================================== */
+.theo-brand{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:52px!important}
+.theo-brand img{width:52px!important;height:52px!important;object-fit:contain!important;display:block!important}
+.mada-chat-avatar img{width:100%;height:100%;object-fit:contain;display:block}
+.theme-toggle{display:none!important}
+@media(max-width:767px){
+  .top{background:rgba(255,255,255,.97)!important;backdrop-filter:blur(14px);position:sticky;top:0;z-index:45}
+  .top .topin{min-height:72px!important;padding:8px 16px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important}
+  .theo-brand img{width:46px!important;height:46px!important}
+  .mada-site-lang{padding:3px!important;border-radius:999px!important;gap:2px!important}
+  .mada-site-lang button{min-width:44px!important;height:36px!important;padding:0 10px!important;font-size:12px!important}
+  .mada-mobile-menu-btn{width:44px!important;height:44px!important;border-radius:14px!important}
+
+  .mada-bottom-nav.theo-floating-nav{
+    --active-index:0;--tab-count:5;
+    display:grid!important;grid-auto-flow:column!important;grid-auto-columns:1fr!important;
+    position:fixed!important;left:14px!important;right:14px!important;bottom:calc(10px + env(safe-area-inset-bottom))!important;
+    height:68px!important;padding:7px 8px!important;border:1px solid rgba(0,29,57,.10)!important;border-radius:24px!important;
+    background:rgba(255,255,255,.96)!important;box-shadow:0 12px 34px rgba(0,29,57,.16)!important;backdrop-filter:blur(18px)!important;overflow:visible!important;z-index:80!important;
+  }
+  .mada-bottom-nav.theo-floating-nav a{z-index:2;min-height:54px!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:2px!important;color:#6f8190!important;background:transparent!important;border:0!important;transition:color .28s ease,transform .28s ease!important}
+  .mada-bottom-nav.theo-floating-nav a::after{display:none!important}
+  .mada-bottom-nav.theo-floating-nav .nav-icon{font-size:18px!important;line-height:1!important;transition:opacity .2s ease,transform .28s ease!important}
+  .mada-bottom-nav.theo-floating-nav small{font-size:9px!important;font-weight:700!important;white-space:nowrap!important}
+  .mada-bottom-nav.theo-floating-nav a.active{color:#0A4174!important;transform:translateY(-5px)!important}
+  .mada-bottom-nav.theo-floating-nav a.active .nav-icon{opacity:0!important;transform:scale(.4)!important}
+  .theo-nav-bubble{
+    position:absolute!important;z-index:3!important;top:-18px!important;
+    width:48px!important;height:48px!important;border-radius:50%!important;background:#fff!important;border:5px solid #fff!important;
+    box-shadow:0 7px 20px rgba(0,29,57,.20)!important;display:grid!important;place-items:center!important;pointer-events:none!important;
+    left:calc(((var(--active-index) + .5) * (100% / var(--tab-count))) - 24px)!important;transition:left .38s cubic-bezier(.22,.8,.22,1)!important;
+  }
+  html[dir="rtl"] .theo-nav-bubble{left:calc((((var(--tab-count) - 1 - var(--active-index)) + .5) * (100% / var(--tab-count))) - 24px)!important}
+  .theo-nav-bubble img{width:32px!important;height:32px!important;object-fit:contain!important}
+  body.has-mada-bottom-nav{padding-bottom:100px!important}
+  body.has-mada-bottom-nav .mada-chat-launcher{bottom:calc(92px + env(safe-area-inset-bottom))!important;inset-inline-end:18px!important;width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important}
+  .mada-live-toast{bottom:calc(112px + env(safe-area-inset-bottom))!important;max-width:calc(100vw - 40px)!important;font-size:13px!important;padding:11px 14px!important}
+  .mada-contextbar{display:none!important}
+}
+@media(min-width:768px){.theo-brand img{width:54px!important;height:54px!important}}
+
+/* THE O — experience creation live preview + refined moving-O dock */
+.mada-smart-draft-btn{background:#E8F4F1!important;color:#0E7C66!important;border:1px solid #CFE9E2!important;border-radius:999px!important;padding:8px 12px!important;font-weight:800!important;box-shadow:none!important}
+.mada-smart-draft-btn:hover{background:#DDF0EB!important;transform:translateY(-1px)}
+.theo-live-preview{margin:28px 0 20px;padding:20px;border-radius:20px;background:#F7F3EC;border:1px solid rgba(0,29,57,.08)}
+.theo-preview-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}.theo-preview-head h3{margin:4px 0 0;color:#001D39}.theo-preview-head .eyebrow{font-size:11px;font-weight:800;color:#49769F}
+.theo-preview-card{max-width:430px;background:#fff;border-radius:18px;overflow:hidden;border:1px solid rgba(0,29,57,.08);box-shadow:0 8px 26px rgba(0,29,57,.07)}
+.theo-preview-image{height:180px;background-size:cover;background-position:center;position:relative}.theo-preview-category{position:absolute;top:12px;inset-inline-start:12px;background:rgba(255,255,255,.94);color:#0A4174;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:800}.theo-preview-body{padding:16px}.theo-preview-body h3{margin:0 0 7px;color:#001D39}.theo-preview-body p{margin:0;color:#617383;font-size:13px;line-height:1.75}.theo-preview-meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;color:#49769F;font-size:11px;font-weight:700}
+@media(max-width:767px){.theo-live-preview{padding:14px;margin-inline:-2px}.theo-preview-card{max-width:none}.theo-preview-image{height:160px}
+  .mada-bottom-nav.theo-floating-nav::before,.mada-bottom-nav.theo-floating-nav::after{content:"";position:absolute;top:-7px;width:22px;height:18px;z-index:1;pointer-events:none;opacity:.95;transition:transform .38s cubic-bezier(.22,.8,.22,1)}
+  .theo-nav-bubble{transition:left .42s cubic-bezier(.34,1.45,.64,1),transform .24s ease!important}
+  .mada-bottom-nav.theo-floating-nav:active .theo-nav-bubble{transform:scale(.96)}
+}
+
+/* FIELD TEST FINAL: O lives inside the active tab icon and glides horizontally */
+@media(max-width:767px){
+ .mada-bottom-nav.theo-floating-nav{height:70px!important;padding:7px 8px!important;overflow:hidden!important}
+ .mada-bottom-nav.theo-floating-nav a{transform:none!important;padding-top:2px!important;justify-content:flex-start!important}
+ .mada-bottom-nav.theo-floating-nav a.active{transform:none!important}
+ .mada-bottom-nav.theo-floating-nav a.active .nav-icon{opacity:0!important}
+ .theo-nav-bubble{top:9px!important;width:28px!important;height:28px!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;left:calc(((var(--active-index) + .5) * (100% / var(--tab-count))) - 14px)!important;transition:left .46s cubic-bezier(.34,1.35,.64,1),transform .22s ease!important}
+ html[dir="rtl"] .theo-nav-bubble{left:calc((((var(--tab-count) - 1 - var(--active-index)) + .5) * (100% / var(--tab-count))) - 14px)!important}
+ .theo-nav-bubble img{width:28px!important;height:28px!important}
+ .mada-bottom-nav.theo-floating-nav::before,.mada-bottom-nav.theo-floating-nav::after{display:none!important}
+ html[dir="ltr"] body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif!important;text-align:left}
+ html[dir="ltr"] .mada-chat-panel,html[dir="ltr"] .mada-chat-panel *{direction:ltr;text-align:left}
+ html[dir="ltr"] .mada-chat-input{direction:ltr}
+}
+\n/* Final assistant polish */\n.mada-chat-panel{border:1px solid rgba(0,29,57,.10)!important;box-shadow:0 24px 70px rgba(0,29,57,.20)!important;overflow:hidden!important}\n.mada-chat-head{padding:14px 16px!important;background:#fff!important;border-bottom:1px solid rgba(0,29,57,.07)!important}\n.mada-chat-suggest{padding:10px 14px!important;display:flex!important;gap:7px!important;overflow-x:auto!important;scrollbar-width:none}\n.mada-chat-chip{white-space:nowrap!important;border-radius:999px!important}\n.mada-chat-messages{padding:14px!important;background:#f8fafb!important}\n.mada-bubble{max-width:88%!important;line-height:1.65!important}\n.mada-chat-input{padding:10px!important;background:#fff!important;border-top:1px solid rgba(0,29,57,.07)!important}\n.theo-booking-note,.theo-cancel-info{margin-top:12px;padding:12px 14px;border-radius:14px;background:#f2f7fa;color:#001D39;display:grid;gap:5px;font-size:12px}\n.theo-cancel-info{background:#fff3f1;color:#7b2b22}\n
+/* ===== THE O — FIELD TEST CONTROLLED FINAL PASS ===== */
+/* Hero: keep the approved image, restore strong RTL/LTR composition with breathing room. */
+.hero.mada-compact-hero{padding-inline:0!important}
+.hero.mada-compact-hero .hero-content{width:min(1180px,calc(100% - 12vw))!important;max-width:1180px!important;margin-inline:auto!important;text-align:start!important}
+html[dir="rtl"] .hero.mada-compact-hero .hero-content{direction:rtl!important}
+html[dir="ltr"] .hero.mada-compact-hero .hero-content{direction:ltr!important}
+.hero.mada-compact-hero h1,.hero.mada-compact-hero p{margin-inline:0!important;text-align:start!important}
+.hero.mada-compact-hero .searchbar{margin-inline:0!important}
+html[dir="ltr"] .hero.mada-compact-hero .searchbar{direction:ltr!important}
+
+/* Business onboarding: light, readable, premium cards — no black surfaces. */
+.mada-owner-guide{gap:16px!important}
+.mada-owner-guide .mada-clear-card{background:#F4F8FB!important;border:1px solid #D8E5EE!important;color:#001D39!important;box-shadow:none!important;padding:24px!important}
+.mada-owner-guide .mada-clear-card:nth-child(2){background:#EAF3F8!important;border-color:#C9DDE9!important}
+.mada-owner-guide .mada-clear-card.done-step{background:#F7FAFC!important;border-color:#DCE7EE!important}
+.mada-owner-guide .mada-clear-card h3{color:#001D39!important;line-height:1.45!important;font-size:20px!important}
+.mada-owner-guide .mada-clear-card p{color:#617383!important;font-size:14px!important;line-height:1.8!important}
+.mada-owner-guide .mada-clear-card .num{color:#0A4174!important;font-weight:850!important}
+
+/* Assistant: intentionally calm. One short message + four role actions; details appear after a choice. */
+.mada-chat-panel{width:min(370px,calc(100vw - 28px))!important;max-height:min(520px,72vh)!important;background:#fff!important}
+.mada-context-tip,.mada-chat-mini-note{display:none!important}
+.mada-chat-head{padding:13px 14px!important}
+.mada-chat-suggest{padding:10px 14px 6px!important;display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}
+.mada-chat-chip{margin:0!important;min-height:44px!important;padding:9px 10px!important;border:1px solid #DCE7EE!important;background:#F7FAFC!important;color:#163A59!important;border-radius:12px!important;font-size:12px!important;line-height:1.35!important}
+.mada-chat-messages{padding:10px 14px!important;min-height:120px!important}
+.mada-bubble{max-width:88%!important;line-height:1.65!important}
+.mada-chat-input{margin:8px 14px 14px!important;border:1px solid #DCE7EE!important;border-radius:14px!important;background:#fff!important}
+html[dir="ltr"] .mada-chat-panel{direction:ltr}html[dir="rtl"] .mada-chat-panel{direction:rtl}
+
+/* Unified semantic statuses */
+.status-under-review,.badge.review{background:#FFF7E8!important;color:#8A5A00!important}
+.status-accepted,.badge.accepted{background:#EAF4FB!important;color:#0A4174!important}
+.status-upcoming,.badge.upcoming{background:#EDF6F7!important;color:#246678!important}
+.status-completed,.badge.completed{background:#ECF7F1!important;color:#176B4D!important}
+.status-cancelled,.badge.cancelled{background:#FFF0F0!important;color:#A33A3A!important}
+
+@media(max-width:720px){
+ .hero.mada-compact-hero .hero-content{width:auto!important;margin-inline:20px!important}
+ .hero.mada-compact-hero h1{font-size:clamp(34px,10vw,46px)!important}
+ .mada-owner-guide{grid-template-columns:1fr!important}
+ .mada-owner-guide .mada-clear-card{padding:20px!important}
+ .mada-chat-panel{inset-inline:10px!important;width:auto!important;max-height:80dvh!important;bottom:82px!important}
+}

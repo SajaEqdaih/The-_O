@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+   لوحة صاحب النشاط
+  </title>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/ui-kit.css" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body data-role="business">
+<div class="dashboard">
+<aside class="sidebar">
+<a class="brand" href="business-dashboard.html">
+<span class="mark">
+      م
+     </span>
+<span>
+<strong>
+       The O للأعمال
+      </strong>
+<small>
+       BUSINESS
+      </small>
+</span>
+</a>
+<nav class="sidenav">
+<a class="active" href="business-dashboard.html">
+      لوحة التحكم
+     </a>
+<a class="" href="create-offer.html">
+      إنشاء عرض
+     </a>
+<a class="" href="business-my-offers.html">
+      تجاربي
+     </a>
+<a class="" href="applicants.html">
+      الطلبات
+     </a>
+<a class="" href="business-analytics.html">
+      التحليلات
+     </a>
+<a class="" href="business-calendar.html">
+      التقويم
+     </a>
+<a class="" href="business-notifications.html">
+      الإشعارات
+     </a>
+<a class="" href="business-plans.html">
+      الباقات
+     </a>
+<a class="" href="business-onboarding.html">
+      دليل البدء
+     </a>
+<a class="" href="business-settings.html">
+      الإعدادات
+     </a>
+</nav>
+<div class="sidebottom">
+<div class="userchip">
+<strong>
+       حساب تجريبي
+      </strong>
+<br/>
+<small>
+       business
+      </small>
+</div>
+<a class="btn light full" href="index.html" data-logout="1">
+      تسجيل الخروج
+     </a>
+</div>
+</aside>
+<div class="main">
+<header class="dashtop">
+<div>
+<strong>
+       لوحة صاحب النشاط
+      </strong>
+<div class="muted" style="font-size:11px">
+       نظرة عامة على العروض والمتقدمين
+      </div>
+</div>
+<div class="row">
+<a class="btn light" href="search.html">
+       بحث
+      </a>
+<button class="btn light">
+       إشعارات
+      </button>
+</div>
+</header>
+<main class="content">
+<div class="panel mada-empty hidden" id="dashboardEmptyState" style="margin-bottom:18px">
+<div class="mada-empty-icon">✦</div>
+<h3>ما عندك أي عروض منشورة بعد</h3>
+<p>أنشئ أول تجربة ضيافة لاستقطاب صنّاع المحتوى — أقل من دقيقة باستخدام نموذج جاهز.</p>
+<a class="btn violet" href="create-offer.html?from=onboarding">أنشئ أول عرض لك الآن</a>
+</div>
+<div id="dashboardMainContent">
+<div class="stats">
+<div class="stat">
+<strong>
+        6
+       </strong>
+<p>
+        عروض نشطة
+       </p>
+<small>
+        +2 هذا الشهر
+       </small>
+</div>
+<div class="stat">
+<strong>
+        71
+       </strong>
+<p>
+        متقدمون
+       </p>
+<small>
+        +18 أسبوعيًا
+       </small>
+</div>
+<div class="stat">
+<strong>
+        5.2K
+       </strong>
+<p>
+        مشاهدات
+       </p>
+<small>
+        +23%
+       </small>
+</div>
+<div class="stat">
+<strong>
+        14.8%
+       </strong>
+<p>
+        معدل التحويل
+       </p>
+<small>
+        فتح → تقديم
+       </small>
+</div>
+</div>
+<div class="grid cols2" style="margin-top:18px">
+<div class="panel">
+<h2>
+        مواعيد قادمة
+       </h2>
+<div class="timeline">
+<div class="time">
+<span class="dot">
+</span>
+<div>
+<h4>
+           22 أغسطس
+          </h4>
+<p>
+           4 مؤثرين · تجربة عشاء
+          </p>
+</div>
+</div>
+<div class="time">
+<span class="dot">
+</span>
+<div>
+<h4>
+           28 أغسطس
+          </h4>
+<p>
+           6 مؤثرين · افتتاح
+          </p>
+</div>
+</div>
+</div>
+</div>
+<div class="panel">
+<h2>
+        آخر النشاطات
+       </h2>
+<p>
+        سارة تقدمت على عرضك
+       </p>
+<p>
+        محمد رفع إثبات التسليم
+       </p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  var uid = MadaSession.currentBusinessUid();
+  if(new URLSearchParams(location.search).get("first_offer") === "1"){
+    MadaUI.toast("🎉 تم نشر أول عرض لك بنجاح", "success");
+  }
+  MadaDB.getOffers({ businessUid: uid }).then(function(offers){
+    if(!offers.length){
+      document.getElementById("dashboardEmptyState").classList.remove("hidden");
+      document.getElementById("dashboardMainContent").classList.add("hidden");
+    }
+  });
+});
+</script>
+<script src="assets/js/app.js">
+</script>
+<script src="assets/js/mada-i18n.js">
+</script>
+<script src="assets/js/mada-chatbot.js">
+</script>
+<script src="assets/js/data-service.js"></script>
+<script src="assets/js/ui-kit.js"></script>
+<script src="assets/js/mada-experience.js"></script><script src="assets/js/mada-mobile-ui.js"></script></body>
+</html>

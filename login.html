@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+   تسجيل الدخول | The O
+  </title>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/ui-kit.css" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body data-role="guest">
+<div class="auth">
+<div class="auth-side">
+<div>
+<span class="eyebrow">
+      The O
+     </span>
+<h1>
+      أهلًا برجعتك 👋
+     </h1>
+<p>
+      دخول بسيط وواضح. استخدم الجوال أو البريد، وما بنطلب منك خطوات إضافية بدون داعي.
+     </p>
+<div class="mada-trust-strip">
+<div class="mada-trust-item">
+<b>
+        واضح
+       </b>
+<span>
+        تعرف أين أنت وما الخطوة التالية.
+       </span>
+</div>
+<div class="mada-trust-item">
+<b>
+        خفيف
+       </b>
+<span>
+        أقل عدد ممكن من الحقول.
+       </span>
+</div>
+<div class="mada-trust-item">
+<b>
+        مساعدة مباشرة
+       </b>
+<span>
+        مساعد The O موجود في كل صفحة.
+       </span>
+</div>
+</div>
+</div>
+</div>
+<div class="auth-main">
+<form class="auth-card form" id="mada-login-form">
+<a class="brand theo-brand" href="index.html" aria-label="The O"><img src="assets/images/the-o-logo.png" alt="The O"></a>
+<div class="mada-stepbar">
+<span class="mada-step active">
+</span>
+</div>
+<h2>
+      تسجيل الدخول
+     </h2>
+<p class="muted" id="mada-login-copy">
+      خطوة واحدة فقط.
+     </p>
+<div class="field">
+<label>
+       البريد أو الجوال
+      </label>
+<input id="mada-login-contact" placeholder="+968 أو name@email.com" required=""/>
+</div>
+<div class="field">
+<label>
+       كلمة المرور
+      </label>
+<input id="mada-login-password" required="" type="password"/>
+</div>
+<button class="btn violet full">
+      متابعة
+     </button>
+<div class="mada-role-hint">
+<span>
+       أول مرة في The O؟
+      </span>
+<span>
+<a href="influencer-register.html">
+        حساب صانع محتوى
+       </a>
+       ·
+       <a href="business-register.html">
+        حساب نشاط
+       </a>
+</span>
+</div>
+<div class="mada-help-inline">
+<a href="how-it-works.html">
+       كيف تعمل The O؟
+      </a>
+<a href="faq.html">
+       عندي سؤال
+      </a>
+</div>
+</form>
+</div>
+</div>
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var returnPath = params.get("return") || "";
+  var BUSINESS_PAGES = ["business-dashboard.html","applicants.html","business-my-offers.html","business-analytics.html","business-profile.html","business-settings.html","business-calendar.html","business-notifications.html","create-offer.html","business-onboarding.html"];
+  var INFLUENCER_PAGES = ["influencer-my-offers.html","influencer-profile.html","influencer-calendar.html","influencer-notifications.html","saved-offers.html"];
+
+  if(returnPath){
+    document.getElementById("mada-login-copy").textContent = "سجّل الدخول للمتابعة إلى الصفحة التي طلبتها.";
+  }
+
+  document.getElementById("mada-login-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    var contact=(document.getElementById("mada-login-contact").value||"").trim();
+    var password=document.getElementById("mada-login-password").value||"";
+    if(!contact || !password){ (window.MadaUI?MadaUI.toast:function(){})("الرجاء تعبئة البيانات","warning"); return; }
+
+    // No real backend in this prototype: if this browser already registered
+    // once, resume that role/session. Otherwise infer the role from which
+    // protected page they were trying to reach, so the demo flow works
+    // end-to-end without a fake "choose your role" step.
+    var legacyRole = null;
+    try{ legacyRole = localStorage.getItem("mada_user_role"); }catch(x){}
+    var role = legacyRole === "creator" ? "influencer" : legacyRole === "business" ? "business" : null;
+    if(!role){
+      if(BUSINESS_PAGES.indexOf(returnPath) > -1) role = "business";
+      else if(INFLUENCER_PAGES.indexOf(returnPath) > -1) role = "influencer";
+      else role = "influencer";
+    }
+    var uid = role === "business" ? "biz_luna" : "inf_sara";
+    try{
+      var lastUid = localStorage.getItem("mada_last_uid");
+      if(lastUid) uid = lastUid;
+    }catch(x){}
+    try{
+      localStorage.setItem("mada_user_role", role === "business" ? "business" : "creator");
+      localStorage.setItem("mada_registered","1");
+    }catch(x){}
+    if(window.MadaSession) MadaSession.set({ role: role, name: null, uid: uid });
+    (window.MadaUI?MadaUI.toast:function(){})("تم تسجيل الدخول بنجاح","success");
+    setTimeout(function(){ location.href = returnPath || "index.html"; }, 400);
+  });
+})();
+</script>
+<script src="assets/js/app.js">
+</script>
+<script src="assets/js/mada-i18n.js">
+</script>
+<script src="assets/js/mada-chatbot.js">
+</script>
+<script src="assets/js/data-service.js"></script>
+<script src="assets/js/ui-kit.js"></script>
+<script src="assets/js/mada-experience.js"></script><script src="assets/js/mada-mobile-ui.js"></script></body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+   إشعارات صانع المحتوى
+  </title>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/ui-kit.css" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body data-role="influencer">
+<header class="top">
+<div class="container topin">
+<a class="brand theo-brand" href="index.html" aria-label="The O"><img src="assets/images/the-o-logo.png" alt="The O"></a>
+<nav class="nav"><a href="index.html">الرئيسية</a><a href="index.html#discover">الفرص</a><a href="influencer-my-offers.html">طلبات التعاون</a><a href="saved-offers.html">المحفوظات</a><a href="influencer-profile.html">حسابي</a></nav>
+</div>
+</header>
+<section class="section">
+<div class="container" style="max-width:720px">
+<div class="section-head" style="margin-bottom:8px"><div><h2 style="font-size:18px">الإشعارات</h2></div></div>
+<div id="notifList" class="mada-notif-list"></div>
+<div class="mada-empty hidden" id="notifEmpty"><div class="mada-empty-icon">◎</div><h3>لا توجد إشعارات</h3><p>ستظهر هنا كل التحديثات على طلباتك.</p></div>
+</div>
+</section>
+<script src="assets/js/app.js">
+</script>
+<script src="assets/js/mada-i18n.js">
+</script>
+<script src="assets/js/mada-chatbot.js">
+</script>
+<script src="assets/js/data-service.js"></script>
+<script src="assets/js/ui-kit.js"></script>
+<script>
+(function(){
+  var list = document.getElementById("notifList");
+  var empty = document.getElementById("notifEmpty");
+  var clearSkeleton = MadaUI.skeleton(list, { rows: 3 });
+  MadaDB.getNotifications(MadaDB.currentUid()).then(function(items){
+    clearSkeleton();
+    if(!items.length){ empty.classList.remove("hidden"); return; }
+    list.innerHTML = items.map(function(n){
+      return '<div class="mada-notif-row'+(n.read ? "" : " unread")+'" data-notif="'+n.notificationId+'">'+
+        '<span class="mada-notif-dot"></span>'+
+        '<div class="mada-notif-text"><h3>'+n.title+'</h3><p class="muted">'+n.body+'</p></div>'+
+        (n.read ? "" : '<span class="badge green">جديد</span>')+
+        '</div>';
+    }).join("");
+    list.querySelectorAll("[data-notif]").forEach(function(card){
+      card.addEventListener("click", function(){ MadaDB.markNotificationRead(card.getAttribute("data-notif")); });
+    });
+  });
+})();
+</script>
+<script src="assets/js/mada-experience.js"></script><script src="assets/js/mada-mobile-ui.js"></script></body>
+</html>

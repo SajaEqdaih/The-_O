@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+   طلبات التعاون | The O
+  </title>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/ui-kit.css" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body data-role="influencer">
+<header class="top">
+<div class="container topin">
+<a class="brand theo-brand" href="index.html" aria-label="The O"><img src="assets/images/the-o-logo.png" alt="The O"></a>
+<nav class="nav"><a href="index.html">الرئيسية</a><a href="index.html#discover">الفرص</a><a href="influencer-my-offers.html">طلبات التعاون</a><a href="saved-offers.html">المحفوظات</a><a href="influencer-profile.html">حسابي</a></nav>
+</div>
+</header>
+<section class="section">
+<div class="container">
+<div class="section-head">
+<div>
+<span class="eyebrow">حالة طلباتك</span>
+<h1>طلبات التعاون</h1>
+<p>تابع كل طلب قدمته واعرف الخطوة الحالية بوضوح.</p>
+</div>
+<a class="btn light" href="index.html#discover">استعراض فرص جديدة</a>
+</div>
+<div class="panel offers-toolbar">
+<div class="filter-chips" id="myOffersFilters">
+<button class="filter-chip active" data-offer-filter="all">الكل <span id="cnt-all">0</span></button>
+<button class="filter-chip" data-offer-filter="pending">قيد المراجعة <span id="cnt-pending">0</span></button>
+<button class="filter-chip" data-offer-filter="accepted">مقبول <span id="cnt-accepted">0</span></button>
+<button class="filter-chip" data-offer-filter="in_review">قيد التسليم <span id="cnt-in_review">0</span></button>
+<button class="filter-chip" data-offer-filter="completed">مكتمل <span id="cnt-completed">0</span></button>
+</div>
+</div>
+<div class="my-offers-grid" id="myOffersGrid"></div>
+<div class="panel empty-offers-state hidden" id="myOffersEmpty">
+<div class="empty-icon">
+      ◎
+     </div>
+<h3>
+      لا توجد عروض بهذه الحالة
+     </h3>
+<p>
+      جرّب اختيار حالة أخرى من الفلاتر أعلاه.
+     </p>
+</div>
+</div>
+</section>
+<script src="assets/js/app.js">
+</script>
+<script src="assets/js/mada-i18n.js">
+</script>
+<script src="assets/js/mada-chatbot.js">
+</script>
+<script src="assets/js/data-service.js"></script>
+<script src="assets/js/ui-kit.js"></script>
+<script>
+(function(){
+  var grid = document.getElementById("myOffersGrid");
+  var empty = document.getElementById("myOffersEmpty");
+  var myUid = MadaDB.currentUid();
+  var STATUS_LABEL = { pending: ["قيد المراجعة","orange"], accepted: ["مقبول","green"], negotiating: ["قيد التفاوض","orange"], rejected: ["غير مقبول","red"], in_review: ["قيد مراجعة التسليم","violet"], completed: ["مكتمل","violet"] };
+  var STEP_ORDER = ["pending","accepted","in_review","completed"];
+
+  var clearSkeleton = MadaUI.skeleton(grid, { rows: 3 });
+  var skeletonSafety = setTimeout(function(){ try{ clearSkeleton(); }catch(e){} if(!grid.children.length){ empty.classList.remove("hidden"); } }, 2200);
+  var allApps = [];
+
+  function statusStep(status){
+    var idx = STEP_ORDER.indexOf(status === "negotiating" || status === "rejected" ? "pending" : status);
+    return idx === -1 ? 0 : idx;
+  }
+
+  function cardHtml(a){
+    var label = STATUS_LABEL[a.status] || ["—","gray"];
+    var offer = a.offer || {};
+    var step = statusStep(a.status);
+    var stepNames = ["تم التقديم","القبول","التسليم","الاعتماد"];
+    var stepsHtml = stepNames.map(function(name, i){
+      var cls = i < step ? "done" : (i === step ? "current" : "");
+      var lineCls = i < step ? "done" : "";
+      var b = i < step ? "✓" : (i+1);
+      var line = i < stepNames.length - 1 ? '<div class="status-line '+lineCls+'"></div>' : "";
+      return '<div class="status-step '+cls+'"><b>'+b+'</b><span>'+name+'</span></div>'+line;
+    }).join("");
+
+    var actions = '<a class="btn light" href="influencer-offer.html">عرض التفاصيل</a>';
+    if(a.status === "accepted"){
+      actions += '<button class="btn violet" data-proof-app="'+a.applicationId+'">رفع إثبات التسليم</button><button class="btn light" data-cancel-booking="'+a.applicationId+'">إلغاء الحجز</button>';
+    } else if(a.status === "in_review"){
+      actions += '<button class="btn light" disabled>بانتظار اعتماد صاحب النشاط</button>';
+    } else if(a.status === "completed" && a.rating == null){
+      actions += '<button class="btn light" data-rate-app="'+a.applicationId+'">تقييم التجربة</button>';
+    } else if(a.status === "completed"){
+      actions += '<span class="badge violet">تم التقييم ★'+a.rating+'</span>';
+    }
+
+    return '<article class="my-offer-card" data-status="'+a.status+'">'+
+      '<div class="my-offer-accent '+a.status+'"></div>'+
+      '<div class="my-offer-main">'+
+        '<div class="my-offer-header"><div>'+
+          '<span class="badge '+label[1]+'">'+label[0]+'</span>'+
+          '<h3>'+(offer.title||"عرض")+'</h3><p>'+(offer.businessName||"")+'</p>'+
+        '</div><span class="offer-code">#'+a.applicationId.slice(-6).toUpperCase()+'</span></div>'+
+        '<div class="my-offer-info"><span>📍 '+(offer.city||"")+'</span><span>📅 '+(offer.eventDate||"")+'</span></div>'+ (a.status==="accepted"?'<div class="theo-booking-note"><b>موعد تجربتك</b><span>📅 '+(offer.eventDate||"سيتم تحديد التاريخ")+' · ⏰ '+(offer.eventTime||"7:30 مساءً")+'</span><span>يرجى الحضور في الوقت المحدد · كود الحجز: <strong>O-'+a.applicationId.slice(-4).toUpperCase()+'</strong></span></div>':'')+
+        '<div class="status-progress">'+stepsHtml+'</div>'+
+        '<div class="my-offer-actions">'+actions+'</div>'+
+      '</div></article>';
+  }
+
+  grid.addEventListener("click", function(e){
+    var b=e.target.closest("[data-cancel-booking]"); if(!b)return; var id=b.dataset.cancelBooking;
+    var d=MadaUI.openDialog({title:"إلغاء الحجز",render:function(box){box.innerHTML='<div class="field"><label>سبب الإلغاء</label><textarea id="cancelReason" rows="4" placeholder="اكتب سبب الإلغاء هنا..."></textarea></div><button class="btn red full" id="confirmCancel" style="margin-top:12px">تأكيد إلغاء الحجز</button>';box.querySelector("#confirmCancel").onclick=function(){var r=box.querySelector("#cancelReason").value.trim();if(!r){MadaUI.toast("اكتب سبب الإلغاء قبل المتابعة","info");return;}try{localStorage.setItem("theo_cancel_"+id,JSON.stringify({reason:r,at:new Date().toISOString()}));}catch(x){} MadaDB.updateApplicationStatus(id,"rejected").then(function(){MadaUI.toast("تم إلغاء الحجز","success");d.close();location.reload();});};}});
+  });
+
+  function render(list){
+    if(!list.length){
+      grid.innerHTML = "";
+      empty.classList.remove("hidden");
+      return;
+    }
+    empty.classList.add("hidden");
+    grid.innerHTML = list.map(cardHtml).join("");
+  }
+
+  function updateCounts(){
+    var counts = { all: allApps.length, pending: 0, accepted: 0, in_review: 0, completed: 0 };
+    allApps.forEach(function(a){ if(counts[a.status] != null) counts[a.status]++; });
+    Object.keys(counts).forEach(function(k){
+      var el = document.getElementById("cnt-"+k);
+      if(el) el.textContent = counts[k];
+    });
+  }
+
+  function applyFilter(f){
+    render(f === "all" ? allApps : allApps.filter(function(a){ return a.status === f; }));
+  }
+
+  document.getElementById("myOffersFilters").addEventListener("click", function(e){
+    var btn = e.target.closest(".filter-chip");
+    if(!btn) return;
+    document.querySelectorAll("#myOffersFilters .filter-chip").forEach(function(b){ b.classList.remove("active"); });
+    btn.classList.add("active");
+    applyFilter(btn.getAttribute("data-offer-filter"));
+  });
+
+  grid.addEventListener("click", function(e){
+    var proofBtn = e.target.closest("[data-proof-app]");
+    var rateBtn = e.target.closest("[data-rate-app]");
+    if(proofBtn){
+      var appId = proofBtn.getAttribute("data-proof-app");
+      var dialog = MadaUI.openDialog({
+        title: "رفع إثبات التسليم",
+        render: function(body){
+          body.innerHTML =
+            '<div class="field"><label>رابط المحتوى المنشور</label><input id="proofUrl" placeholder="https://example.com/content"></div>'+
+            '<div class="field" style="margin-top:10px"><label>ملاحظة (اختياري)</label><textarea id="proofNote" rows="3" placeholder="أي تفاصيل إضافية عن التسليم"></textarea></div>'+
+            '<button class="btn violet full" id="sendProofBtn" style="margin-top:12px">إرسال للمراجعة</button>';
+          body.querySelector("#sendProofBtn").addEventListener("click", function(){
+            var url = body.querySelector("#proofUrl").value.trim();
+            if(!url){ MadaUI.toast("الرجاء إضافة رابط الإثبات", "warning"); return; }
+            MadaDB.submitProof(appId, url, body.querySelector("#proofNote").value.trim()).then(function(){
+              MadaUI.toast("تم إرسال الإثبات للمراجعة", "success");
+              dialog.close();
+              load();
+            });
+          });
+        }
+      });
+    }
+    if(rateBtn){
+      var appId2 = rateBtn.getAttribute("data-rate-app");
+      var chosen = 0;
+      var dialog2 = MadaUI.openDialog({
+        title: "تقييم التجربة",
+        render: function(body){
+          body.innerHTML = '<div id="starsHost" style="margin-bottom:14px"></div><textarea id="reviewText" rows="3" placeholder="اكتب رأيك عن التعاون (اختياري)"></textarea><button class="btn violet full" id="sendRateBtn" style="margin-top:12px">إرسال التقييم</button>';
+          MadaUI.stars(body.querySelector("#starsHost"), { value: 0, editable: true, onChange: function(v){ chosen = v; } });
+          body.querySelector("#sendRateBtn").addEventListener("click", function(){
+            if(!chosen){ MadaUI.toast("اختر عدد النجوم أولًا", "warning"); return; }
+            MadaDB.submitRating(appId2, chosen, body.querySelector("#reviewText").value.trim()).then(function(){
+              MadaUI.toast("شكرًا لتقييمك!", "success");
+              dialog2.close();
+              load();
+            });
+          });
+        }
+      });
+    }
+  });
+
+  function load(){
+    MadaDB.getApplicationsByUser(myUid).then(function(apps){
+      clearTimeout(skeletonSafety);
+      clearSkeleton();
+      allApps = apps;
+      updateCounts();
+      var activeFilter = document.querySelector("#myOffersFilters .filter-chip.active");
+      applyFilter(activeFilter ? activeFilter.getAttribute("data-offer-filter") : "all");
+    });
+  }
+  load();
+})();
+</script>
+<script src="assets/js/mada-experience.js"></script><script src="assets/js/mada-mobile-ui.js"></script></body>
+</html>

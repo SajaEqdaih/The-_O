@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
+   ابدأ نشاطك | The O للأعمال
+  </title>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/ui-kit.css" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+<body data-role="business">
+<header class="top">
+<div class="container topin">
+<a class="brand theo-brand" href="index.html" aria-label="The O"><img src="assets/images/the-o-logo.png" alt="The O"></a>
+<nav class="nav">
+<a href="how-it-works.html">
+      كيف تعمل؟
+     </a>
+<a href="faq.html">
+      المساعدة
+     </a>
+</nav>
+<a class="btn light" href="business-dashboard.html">
+     لوحة الأعمال
+    </a>
+</div>
+</header>
+<section class="section">
+<div class="container">
+<div class="section-head">
+<div>
+<span class="eyebrow">
+       أنت الآن هنا
+      </span>
+<h1>
+       جهّز نشاطك بدون لخبطة
+      </h1>
+<p>
+       ما تحتاج تعمل كل شيء مرة واحدة. هذه الخريطة توضح لك المسار كاملًا قبل ما تبدأ.
+      </p>
+</div>
+</div>
+<div class="mada-owner-guide" id="onboardingChecklist">
+<div class="mada-clear-card" data-step="profile">
+<span class="num">
+       01 · مكتمل ✓
+      </span>
+<h3>
+       توثيق بيانات النشاط
+      </h3>
+<p>
+       تم حفظ اسم النشاط، النوع، المحافظة وطريقة التواصل.
+      </p>
+</div>
+<div class="mada-clear-card" data-step="offer" id="stepOffer">
+<span class="num" id="stepOfferNum">
+       02 · الآن
+      </span>
+<h3>
+       إضافة أول تجربة ضيافة لاستقطاب صناع المحتوى
+      </h3>
+<p>
+       صور، موعد، ما تتضمنه التجربة والمطلوب من صانع المحتوى. أقل من دقيقة باستخدام نموذج جاهز.
+      </p>
+<a class="btn violet full" href="create-offer.html?from=onboarding" id="stepOfferBtn" style="margin-top:10px">
+       ابدأ الآن — أنشئ أول تجربة
+      </a>
+</div>
+<div class="mada-clear-card" data-step="bookings" id="stepBookings">
+<span class="num" id="stepBookingsNum">
+       03
+      </span>
+<h3>
+       استقبال طلبات صناع المحتوى وتأكيد الموعد
+      </h3>
+<p id="stepBookingsCopy">
+       بعد نشر أول تجربة، تبدأ طلبات صنّاع المحتوى بالوصول هنا مباشرة.
+      </p>
+<a class="btn light full" href="applicants.html" style="margin-top:10px" id="stepBookingsBtn">
+       مراجعة المتقدمين
+      </a>
+</div>
+</div>
+<div class="panel" style="margin-top:14px">
+<div class="between">
+<div>
+<h3>
+        بدك تفهم الصورة كاملة أولًا؟
+       </h3>
+<p class="muted">
+        صفحة «كيف تعمل The O» تشرح مسار الزائر، صانع المحتوى، صاحب النشاط، والإدارة بدون مصطلحات معقدة.
+       </p>
+</div>
+<a class="btn light" href="how-it-works.html">
+       اشرح لي كل شيء
+      </a>
+</div>
+</div>
+</div>
+</section>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  var uid = (window.MadaSession ? MadaSession.currentBusinessUid() : "biz_luna");
+  function markDone(cardId, numId){
+    var card = document.getElementById(cardId);
+    var num = document.getElementById(numId);
+    if(card) card.classList.add("done-step");
+    if(num) num.textContent = num.textContent.split("·")[0] + "· مكتمل ✓";
+  }
+  MadaDB.getOffers({ businessUid: uid }).then(function(offers){
+    if(offers.length){
+      markDone("stepOffer","stepOfferNum");
+      document.getElementById("stepOfferBtn").textContent = "أضف تجربة أخرى";
+      document.getElementById("stepOfferBtn").className = "btn light full";
+    }
+    MadaDB.getBusinessStats(uid).then(function(stats){
+      if(stats.totalApplicants > 0){
+        markDone("stepBookings","stepBookingsNum");
+        document.getElementById("stepBookingsCopy").textContent = "وصلك " + stats.totalApplicants + " طلب تعاون حتى الآن.";
+      } else if(!offers.length){
+        document.getElementById("stepBookingsBtn").setAttribute("aria-disabled","true");
+        document.getElementById("stepBookingsBtn").style.opacity = ".55";
+      }
+    });
+  });
+});
+</script>
+<script src="assets/js/app.js">
+</script>
+<script src="assets/js/mada-i18n.js">
+</script>
+<script src="assets/js/mada-chatbot.js">
+</script>
+<script src="assets/js/data-service.js"></script>
+<script src="assets/js/ui-kit.js"></script>
+<script src="assets/js/mada-experience.js"></script><script src="assets/js/mada-mobile-ui.js"></script></body>
+</html>
